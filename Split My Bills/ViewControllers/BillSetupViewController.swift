@@ -64,18 +64,19 @@ final class BillSetupViewController: UIViewController {
     super.viewDidLoad()
     
     view.backgroundColor = .white // TODO: Support dark-mode
-    view.translatesAutoresizingMaskIntoConstraints = false
+//    view.translatesAutoresizingMaskIntoConstraints = false
     
     stackView.addArrangedSubview(addPeopleButton)
     stackView.addArrangedSubview(addReceiptButton)
     stackView.addArrangedSubview(settleUpButton)
     
     view.addSubview(stackView)
-    stackView.pin(to: view)
+    stackView.pin(to: view.safeAreaLayoutGuide)
   }
   
   @objc private func didTapAddPeopleButton() {
-    
+    let peopleVC = PeopleViewController()
+    navigationController?.pushViewController(peopleVC, animated: true)
   }
   
   @objc private func didTapAddReceiptButton() {

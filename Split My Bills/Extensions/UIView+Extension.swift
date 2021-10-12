@@ -16,4 +16,13 @@ extension UIView {
       trailingAnchor.constraint(equalTo: superview.trailingAnchor),
     ])
   }
+  
+  func pin(to layoutGuide: UILayoutGuide) {
+    NSLayoutConstraint.activate([
+      topAnchor.constraint(equalTo: layoutGuide.topAnchor),
+      bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor),
+      leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
+      trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
+    ])
+  }
 }
