@@ -35,7 +35,7 @@ extension ReceiptTableViewController {
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptItemTableViewCell.identifier) as? ReceiptItemTableViewCell else { return UITableViewCell() }
     
-    let fakeAssModel = ReceiptItemModel(itemName: "BABA BOOEY", itemCost: Amount(rawValue: 14.99))
+    let fakeAssModel = ReceiptItemModel(itemName: "BABA BOOEY", itemCost: Amount(rawValue: 1499))
     cell.configure(with: fakeAssModel)
     return cell
   }

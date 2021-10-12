@@ -22,6 +22,13 @@
 		6C3E2CC627161A2A008ACD29 /* AdjustmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2CC527161A2A008ACD29 /* AdjustmentModel.swift */; };
 		6C3E2CCB27161CCE008ACD29 /* Percentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2CCA27161CCE008ACD29 /* Percentage.swift */; };
 		6C3E2CF027161E5E008ACD29 /* PercentageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2CEF27161E5E008ACD29 /* PercentageTests.swift */; };
+		6C3E2CF827162A3D008ACD29 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2CF727162A3D008ACD29 /* Int+Extension.swift */; };
+		6C3E2CFD27162AB1008ACD29 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2CFC27162AB1008ACD29 /* Double+Extension.swift */; };
+		6C3E2D0627162CC7008ACD29 /* Int+Extension_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D0527162CC7008ACD29 /* Int+Extension_Tests.swift */; };
+		6C3E2D0E27162D6F008ACD29 /* Double+Extension_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D0D27162D6F008ACD29 /* Double+Extension_Tests.swift */; };
+		6C3E2D1327162DB4008ACD29 /* AmountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D1227162DB4008ACD29 /* AmountTests.swift */; };
+		6C3E2D1827162FB8008ACD29 /* AdjustmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D1727162FB8008ACD29 /* AdjustmentTests.swift */; };
+		6C3E2D1D2716308A008ACD29 /* ReceiptModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D1C2716308A008ACD29 /* ReceiptModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +70,13 @@
 		6C3E2CC527161A2A008ACD29 /* AdjustmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustmentModel.swift; sourceTree = "<group>"; };
 		6C3E2CCA27161CCE008ACD29 /* Percentage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percentage.swift; sourceTree = "<group>"; };
 		6C3E2CEF27161E5E008ACD29 /* PercentageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageTests.swift; sourceTree = "<group>"; };
+		6C3E2CF727162A3D008ACD29 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		6C3E2CFC27162AB1008ACD29 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		6C3E2D0527162CC7008ACD29 /* Int+Extension_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension_Tests.swift"; sourceTree = "<group>"; };
+		6C3E2D0D27162D6F008ACD29 /* Double+Extension_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension_Tests.swift"; sourceTree = "<group>"; };
+		6C3E2D1227162DB4008ACD29 /* AmountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountTests.swift; sourceTree = "<group>"; };
+		6C3E2D1727162FB8008ACD29 /* AdjustmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustmentTests.swift; sourceTree = "<group>"; };
+		6C3E2D1C2716308A008ACD29 /* ReceiptModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +142,7 @@
 		6C3E2C182716090A008ACD29 /* Split My BillsTests */ = {
 			isa = PBXGroup;
 			children = (
+				6C3E2D0427162CB7008ACD29 /* Extensions */,
 				6C3E2CE327161E32008ACD29 /* Models */,
 				6C3E2C192716090A008ACD29 /* Split_My_BillsTests.swift */,
 				6C3E2C1B2716090A008ACD29 /* Info.plist */,
@@ -177,6 +192,8 @@
 		6C3E2CCF27161DBB008ACD29 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				6C3E2CF727162A3D008ACD29 /* Int+Extension.swift */,
+				6C3E2CFC27162AB1008ACD29 /* Double+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -185,8 +202,20 @@
 			isa = PBXGroup;
 			children = (
 				6C3E2CEF27161E5E008ACD29 /* PercentageTests.swift */,
+				6C3E2D1227162DB4008ACD29 /* AmountTests.swift */,
+				6C3E2D1727162FB8008ACD29 /* AdjustmentTests.swift */,
+				6C3E2D1C2716308A008ACD29 /* ReceiptModelTests.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		6C3E2D0427162CB7008ACD29 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6C3E2D0527162CC7008ACD29 /* Int+Extension_Tests.swift */,
+				6C3E2D0D27162D6F008ACD29 /* Double+Extension_Tests.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,9 +352,11 @@
 				6C3E2CB82716191C008ACD29 /* Amount.swift in Sources */,
 				6C3E2CCB27161CCE008ACD29 /* Percentage.swift in Sources */,
 				6C3E2C4E27160E6B008ACD29 /* ReceiptItemModel.swift in Sources */,
+				6C3E2CFD27162AB1008ACD29 /* Double+Extension.swift in Sources */,
 				6C3E2C4527160DCF008ACD29 /* ReceiptItemTableViewCell.swift in Sources */,
 				6C3E2CAD27161893008ACD29 /* ReceiptModel.swift in Sources */,
 				6C3E2C9E27160FC6008ACD29 /* Identifiable.swift in Sources */,
+				6C3E2CF827162A3D008ACD29 /* Int+Extension.swift in Sources */,
 				6C3E2C0327160909008ACD29 /* AppDelegate.swift in Sources */,
 				6C3E2CB2271618BC008ACD29 /* Adjustment.swift in Sources */,
 			);
@@ -335,8 +366,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C3E2D1D2716308A008ACD29 /* ReceiptModelTests.swift in Sources */,
+				6C3E2D1827162FB8008ACD29 /* AdjustmentTests.swift in Sources */,
+				6C3E2D0E27162D6F008ACD29 /* Double+Extension_Tests.swift in Sources */,
 				6C3E2C1A2716090A008ACD29 /* Split_My_BillsTests.swift in Sources */,
+				6C3E2D1327162DB4008ACD29 /* AmountTests.swift in Sources */,
 				6C3E2CF027161E5E008ACD29 /* PercentageTests.swift in Sources */,
+				6C3E2D0627162CC7008ACD29 /* Int+Extension_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

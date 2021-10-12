@@ -9,11 +9,11 @@ import Foundation
 
 
 /// Represents a portion of a whole
-public struct Percentage {
+struct Percentage {
   
-  /// The percentage represented as a float.
+  /// The percentage represented as a double.
   /// Example: 15.1% would be represented as 15.1
-  let percent: Float
+  let percent: Double
   
   
   /// Alias for getting the formatted percentage as a string
@@ -27,12 +27,14 @@ public struct Percentage {
   func formatted(to places: Int = 1) -> String {
     let nf = NumberFormatter()
     nf.numberStyle = .percent
-    // TODO: Decimal places??
+    nf.maximumFractionDigits = places
     nf.locale = Locale.current
-    return nf.string(from: NSNumber(value: percent))!
+    return nf.string(from: NSNumber(value: percent / 100.0))!
   }
 }
 
 extension Percentage {
-  static let zero = Percentage(percent: 0.0)
+  static let zero = 0.0.percentage
 }
+
+extension Percentage: Equatable, Hashable { }

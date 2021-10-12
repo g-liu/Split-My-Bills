@@ -10,10 +10,30 @@ import Foundation
 
 /// Describes a receipt including taxes, tips, and adjustments
 struct ReceiptModel {
-  var items: [ReceiptItemModel]
+  private var items: [ReceiptItemModel]
   
-  var adjustments: [AdjustmentModel]
+  private var adjustments: [AdjustmentModel]
   
+  init(items: [ReceiptItemModel] = [], adjustments: [AdjustmentModel] = []) {
+    self.items = items
+    self.adjustments = adjustments
+  }
+  
+  mutating func addItem(_ item: ReceiptItemModel) {
+    items.append(item)
+  }
+  
+  mutating func removeItem(at index: Int) -> ReceiptItemModel {
+    items.remove(at: index)
+  }
+  
+  mutating func addAdjustment(_ adjustment: AdjustmentModel) {
+    adjustments.append(adjustment)
+  }
+  
+  mutating func removeAdjustment(at index: Int) -> ReceiptItemModel {
+    items.remove(at: index)
+  }
   
   /// The calculated total on the receipt
   var formattedTotal: String {

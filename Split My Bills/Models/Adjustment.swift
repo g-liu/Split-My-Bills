@@ -14,4 +14,13 @@ enum Adjustment {
 
   /// Adjustment is given as a fixed amount
   case amount(Amount)
+  
+  var formatted: String {
+    switch self {
+      case .amount(let amount):
+        return amount.formatted
+      case .percentage(let percentage):
+        return percentage.formatted
+    }
+  }
 }
