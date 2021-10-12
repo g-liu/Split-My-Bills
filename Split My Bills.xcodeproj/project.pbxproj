@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		6C3E2C0327160909008ACD29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2C0227160909008ACD29 /* AppDelegate.swift */; };
-		6C3E2C0727160909008ACD29 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2C0627160909008ACD29 /* ViewController.swift */; };
+		6C3E2C0727160909008ACD29 /* ReceiptTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2C0627160909008ACD29 /* ReceiptTableViewController.swift */; };
 		6C3E2C0C2716090A008ACD29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C3E2C0B2716090A008ACD29 /* Assets.xcassets */; };
 		6C3E2C1A2716090A008ACD29 /* Split_My_BillsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2C192716090A008ACD29 /* Split_My_BillsTests.swift */; };
 		6C3E2C252716090A008ACD29 /* Split_My_BillsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2C242716090A008ACD29 /* Split_My_BillsUITests.swift */; };
+		6C3E2C4527160DCF008ACD29 /* ReceiptItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2C4427160DCF008ACD29 /* ReceiptItemTableViewCell.swift */; };
+		6C3E2C4E27160E6B008ACD29 /* ReceiptItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2C4D27160E6B008ACD29 /* ReceiptItemModel.swift */; };
+		6C3E2C9E27160FC6008ACD29 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2C9D27160FC6008ACD29 /* Identifiable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +37,7 @@
 /* Begin PBXFileReference section */
 		6C3E2BFF27160909008ACD29 /* Split My Bills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Split My Bills.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C3E2C0227160909008ACD29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6C3E2C0627160909008ACD29 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6C3E2C0627160909008ACD29 /* ReceiptTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTableViewController.swift; sourceTree = "<group>"; };
 		6C3E2C0B2716090A008ACD29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C3E2C102716090A008ACD29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C3E2C152716090A008ACD29 /* Split My BillsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Split My BillsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +46,9 @@
 		6C3E2C202716090A008ACD29 /* Split My BillsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Split My BillsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C3E2C242716090A008ACD29 /* Split_My_BillsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Split_My_BillsUITests.swift; sourceTree = "<group>"; };
 		6C3E2C262716090B008ACD29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C3E2C4427160DCF008ACD29 /* ReceiptItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptItemTableViewCell.swift; sourceTree = "<group>"; };
+		6C3E2C4D27160E6B008ACD29 /* ReceiptItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptItemModel.swift; sourceTree = "<group>"; };
+		6C3E2C9D27160FC6008ACD29 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,10 +99,13 @@
 		6C3E2C0127160909008ACD29 /* Split My Bills */ = {
 			isa = PBXGroup;
 			children = (
+				6C3E2C4C27160E61008ACD29 /* Models */,
 				6C3E2C0227160909008ACD29 /* AppDelegate.swift */,
-				6C3E2C0627160909008ACD29 /* ViewController.swift */,
+				6C3E2C4427160DCF008ACD29 /* ReceiptItemTableViewCell.swift */,
+				6C3E2C0627160909008ACD29 /* ReceiptTableViewController.swift */,
 				6C3E2C0B2716090A008ACD29 /* Assets.xcassets */,
 				6C3E2C102716090A008ACD29 /* Info.plist */,
+				6C3E2C9D27160FC6008ACD29 /* Identifiable.swift */,
 			);
 			path = "Split My Bills";
 			sourceTree = "<group>";
@@ -117,6 +126,14 @@
 				6C3E2C262716090B008ACD29 /* Info.plist */,
 			);
 			path = "Split My BillsUITests";
+			sourceTree = "<group>";
+		};
+		6C3E2C4C27160E61008ACD29 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6C3E2C4D27160E6B008ACD29 /* ReceiptItemModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,7 +264,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C3E2C0727160909008ACD29 /* ViewController.swift in Sources */,
+				6C3E2C0727160909008ACD29 /* ReceiptTableViewController.swift in Sources */,
+				6C3E2C4E27160E6B008ACD29 /* ReceiptItemModel.swift in Sources */,
+				6C3E2C4527160DCF008ACD29 /* ReceiptItemTableViewCell.swift in Sources */,
+				6C3E2C9E27160FC6008ACD29 /* Identifiable.swift in Sources */,
 				6C3E2C0327160909008ACD29 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
