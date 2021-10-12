@@ -30,6 +30,9 @@
 		6C3E2D1827162FB8008ACD29 /* AdjustmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D1727162FB8008ACD29 /* AdjustmentTests.swift */; };
 		6C3E2D1D2716308A008ACD29 /* ReceiptModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D1C2716308A008ACD29 /* ReceiptModelTests.swift */; };
 		6C3E2D222716466F008ACD29 /* ReceiptItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D212716466F008ACD29 /* ReceiptItemTests.swift */; };
+		6C3E2D27271647CE008ACD29 /* BillStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D26271647CE008ACD29 /* BillStateModel.swift */; };
+		6C3E2D2C2716481F008ACD29 /* BillSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D2B2716481F008ACD29 /* BillSetupViewController.swift */; };
+		6C3E2D3127164903008ACD29 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D3027164903008ACD29 /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +82,9 @@
 		6C3E2D1727162FB8008ACD29 /* AdjustmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustmentTests.swift; sourceTree = "<group>"; };
 		6C3E2D1C2716308A008ACD29 /* ReceiptModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptModelTests.swift; sourceTree = "<group>"; };
 		6C3E2D212716466F008ACD29 /* ReceiptItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptItemTests.swift; sourceTree = "<group>"; };
+		6C3E2D26271647CE008ACD29 /* BillStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillStateModel.swift; sourceTree = "<group>"; };
+		6C3E2D2B2716481F008ACD29 /* BillSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillSetupViewController.swift; sourceTree = "<group>"; };
+		6C3E2D3027164903008ACD29 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +177,7 @@
 				6C3E2CB1271618BC008ACD29 /* Adjustment.swift */,
 				6C3E2CCA27161CCE008ACD29 /* Percentage.swift */,
 				6C3E2CB72716191C008ACD29 /* Amount.swift */,
+				6C3E2D26271647CE008ACD29 /* BillStateModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -179,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				6C3E2C0627160909008ACD29 /* ReceiptTableViewController.swift */,
+				6C3E2D2B2716481F008ACD29 /* BillSetupViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -195,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				6C3E2CF727162A3D008ACD29 /* Int+Extension.swift */,
+				6C3E2D3027164903008ACD29 /* UIView+Extension.swift */,
 				6C3E2CFC27162AB1008ACD29 /* Double+Extension.swift */,
 			);
 			path = Extensions;
@@ -351,12 +360,15 @@
 			files = (
 				6C3E2CA52716184A008ACD29 /* PersonModel.swift in Sources */,
 				6C3E2C0727160909008ACD29 /* ReceiptTableViewController.swift in Sources */,
+				6C3E2D3127164903008ACD29 /* UIView+Extension.swift in Sources */,
 				6C3E2CC627161A2A008ACD29 /* AdjustmentModel.swift in Sources */,
 				6C3E2CB82716191C008ACD29 /* Amount.swift in Sources */,
 				6C3E2CCB27161CCE008ACD29 /* Percentage.swift in Sources */,
 				6C3E2C4E27160E6B008ACD29 /* ReceiptItemModel.swift in Sources */,
 				6C3E2CFD27162AB1008ACD29 /* Double+Extension.swift in Sources */,
+				6C3E2D2C2716481F008ACD29 /* BillSetupViewController.swift in Sources */,
 				6C3E2C4527160DCF008ACD29 /* ReceiptItemTableViewCell.swift in Sources */,
+				6C3E2D27271647CE008ACD29 /* BillStateModel.swift in Sources */,
 				6C3E2CAD27161893008ACD29 /* ReceiptModel.swift in Sources */,
 				6C3E2C9E27160FC6008ACD29 /* Identifiable.swift in Sources */,
 				6C3E2CF827162A3D008ACD29 /* Int+Extension.swift in Sources */,

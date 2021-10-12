@@ -15,4 +15,11 @@ final class Int_Extension_Tests: XCTestCase {
     
     XCTAssertEqual(pctFromInt, pctFromPct)
   }
+  
+  func testIntConversionToAmount() {
+    let amtFromInt = 12345.amount
+    let amtFromAmt = Amount(rawValue: 12345)
+    
+    XCTAssertEqual(amtFromInt, amtFromAmt)
+  }
 }
