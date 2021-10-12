@@ -29,6 +29,7 @@
 		6C3E2D1327162DB4008ACD29 /* AmountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D1227162DB4008ACD29 /* AmountTests.swift */; };
 		6C3E2D1827162FB8008ACD29 /* AdjustmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D1727162FB8008ACD29 /* AdjustmentTests.swift */; };
 		6C3E2D1D2716308A008ACD29 /* ReceiptModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D1C2716308A008ACD29 /* ReceiptModelTests.swift */; };
+		6C3E2D222716466F008ACD29 /* ReceiptItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D212716466F008ACD29 /* ReceiptItemTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		6C3E2D1227162DB4008ACD29 /* AmountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountTests.swift; sourceTree = "<group>"; };
 		6C3E2D1727162FB8008ACD29 /* AdjustmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustmentTests.swift; sourceTree = "<group>"; };
 		6C3E2D1C2716308A008ACD29 /* ReceiptModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptModelTests.swift; sourceTree = "<group>"; };
+		6C3E2D212716466F008ACD29 /* ReceiptItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptItemTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +207,7 @@
 				6C3E2D1227162DB4008ACD29 /* AmountTests.swift */,
 				6C3E2D1727162FB8008ACD29 /* AdjustmentTests.swift */,
 				6C3E2D1C2716308A008ACD29 /* ReceiptModelTests.swift */,
+				6C3E2D212716466F008ACD29 /* ReceiptItemTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				6C3E2D1327162DB4008ACD29 /* AmountTests.swift in Sources */,
 				6C3E2CF027161E5E008ACD29 /* PercentageTests.swift in Sources */,
 				6C3E2D0627162CC7008ACD29 /* Int+Extension_Tests.swift in Sources */,
+				6C3E2D222716466F008ACD29 /* ReceiptItemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
