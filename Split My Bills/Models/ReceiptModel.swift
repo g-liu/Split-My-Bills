@@ -23,16 +23,22 @@ struct ReceiptModel {
     items.append(item)
   }
   
-  mutating func removeItem(at index: Int) -> ReceiptItemModel {
-    items.remove(at: index)
+  @discardableResult
+  mutating func removeItem(at index: Int) -> ReceiptItemModel? {
+    guard index >= 0, index < items.count else { return nil }
+    
+    return items.remove(at: index)
   }
   
   mutating func addAdjustment(_ adjustment: AdjustmentModel) {
     adjustments.append(adjustment)
   }
   
-  mutating func removeAdjustment(at index: Int) -> ReceiptItemModel {
-    items.remove(at: index)
+  @discardableResult
+  mutating func removeAdjustment(at index: Int) -> AdjustmentModel? {
+    guard index >= 0, index < items.count else { return nil }
+    
+    return adjustments.remove(at: index)
   }
   
   /// The calculated total on the receipt

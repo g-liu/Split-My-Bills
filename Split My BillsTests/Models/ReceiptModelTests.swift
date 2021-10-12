@@ -98,4 +98,77 @@ final class ReceiptModelTests: XCTestCase {
     
     XCTAssertEqual(receipt.formattedTotal, "$87.91")
   }
+  
+  func testAddItemToReceipt() {
+    var receipt = ReceiptModel()
+    XCTAssertEqual(receipt.formattedTotal, "$0.00")
+    
+    let item = ReceiptItemModel(itemName: "whatevs", itemCost: 40000.amount)
+    receipt.addItem(item)
+    XCTAssertEqual(receipt.formattedTotal, "$400.00")
+  }
+  
+  func testRemoveNonExistentItemFromReceipt() {
+    let items = [2850, 200].map { ReceiptItemModel(itemName: "whatevs", itemCost: $0.amount) }
+    var receipt = ReceiptModel(items: items)
+    XCTAssertEqual(receipt.formattedTotal, "$30.50")
+    
+    let ri1 = receipt.removeItem(at: -1)
+    let ri2 = receipt.removeItem(at: 2)
+    XCTAssertNil(ri1)
+    XCTAssertNil(ri2)
+  }
+  
+  func testRemoveItemFromReceipt() {
+    let items = [2850, 200].map { ReceiptItemModel(itemName: "whatevs", itemCost: $0.amount) }
+    var receipt = ReceiptModel(items: items)
+    XCTAssertEqual(receipt.formattedTotal, "$30.50")
+    
+    let removedItem = receipt.removeItem(at: 0)!
+    XCTAssertEqual(removedItem.formattedItemCost, "$28.50")
+    XCTAssertEqual(receipt.formattedTotal, "$2.00")
+  }
+  
+  func testAddAdjustmentToReceipt() {
+    let items = [2850, 200].map { ReceiptItemModel(itemName: "whatevs", itemCost: $0.amount) }
+    var receipt = ReceiptModel(items: items)
+    XCTAssertEqual(receipt.formattedTotal, "$30.50")
+    
+    receipt.addAdjustment(AdjustmentModel(name: "tip", adjustment: Adjustment.percentage(15.percentage)))
+    XCTAssertEqual(receipt.formattedTotal, "$35.08")
+  }
+  
+  func testRemoveNonExistentAdjustmentFromReceipt() {
+    let items = [2850, 200].map { ReceiptItemModel(itemName: "whatevs", itemCost: $0.amount) }
+    let adjustments = [
+      AdjustmentModel(name: "fee", adjustment: Adjustment.amount(1200.amount)),
+      AdjustmentModel(name: "tax", adjustment: Adjustment.percentage(6.percentage)),
+    ]
+    var receipt = ReceiptModel(items: items, adjustments: adjustments)
+    XCTAssertEqual(receipt.formattedTotal, "$45.05")
+    
+    let ra1 = receipt.removeAdjustment(at: -1)
+    let ra2 = receipt.removeAdjustment(at: 5)
+    
+    XCTAssertNil(ra1)
+    XCTAssertNil(ra2)
+  }
+  
+  func testRemoveAdjustmentFromReceipt() {
+    let items = [2850, 200].map { ReceiptItemModel(itemName: "whatevs", itemCost: $0.amount) }
+    let adjustments = [
+      AdjustmentModel(name: "fee", adjustment: Adjustment.amount(1200.amount)),
+      AdjustmentModel(name: "tax", adjustment: Adjustment.percentage(6.percentage)),
+    ]
+    var receipt = ReceiptModel(items: items, adjustments: adjustments)
+    XCTAssertEqual(receipt.formattedTotal, "$45.05")
+    
+    let removedAdjustment = receipt.removeAdjustment(at: 0)!
+    if case let Adjustment.amount(amount) = removedAdjustment.adjustment {
+      XCTAssertEqual(amount, 1200.amount)
+    } else {
+      XCTFail("removeAdjustment failed")
+    }
+    XCTAssertEqual(receipt.formattedTotal, "$32.33")
+  }
 }
