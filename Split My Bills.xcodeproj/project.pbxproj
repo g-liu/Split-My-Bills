@@ -99,10 +99,10 @@
 		6C3E2C0127160909008ACD29 /* Split My Bills */ = {
 			isa = PBXGroup;
 			children = (
+				6C3E2CA32716115B008ACD29 /* Views */,
+				6C3E2CA227161151008ACD29 /* ViewControllers */,
 				6C3E2C4C27160E61008ACD29 /* Models */,
 				6C3E2C0227160909008ACD29 /* AppDelegate.swift */,
-				6C3E2C4427160DCF008ACD29 /* ReceiptItemTableViewCell.swift */,
-				6C3E2C0627160909008ACD29 /* ReceiptTableViewController.swift */,
 				6C3E2C0B2716090A008ACD29 /* Assets.xcassets */,
 				6C3E2C102716090A008ACD29 /* Info.plist */,
 				6C3E2C9D27160FC6008ACD29 /* Identifiable.swift */,
@@ -134,6 +134,22 @@
 				6C3E2C4D27160E6B008ACD29 /* ReceiptItemModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		6C3E2CA227161151008ACD29 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6C3E2C0627160909008ACD29 /* ReceiptTableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6C3E2CA32716115B008ACD29 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6C3E2C4427160DCF008ACD29 /* ReceiptItemTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
