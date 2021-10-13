@@ -8,6 +8,13 @@
 import UIKit
 
 extension UIView {
+  func pinSides(to superview: UIView) {
+    NSLayoutConstraint.activate([
+      leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+      trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+    ])
+  }
+  
   func pin(to superview: UIView) {
     NSLayoutConstraint.activate([
       topAnchor.constraint(equalTo: superview.topAnchor),

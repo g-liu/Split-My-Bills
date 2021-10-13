@@ -8,7 +8,7 @@
 import UIKit
 
 final class BillSetupViewController: UIViewController {
-  private let billState: BillStateModel
+  private var billState: BillStateModel
   
   lazy var addPeopleButton: UIButton = {
     let button = UIButton()
@@ -64,7 +64,6 @@ final class BillSetupViewController: UIViewController {
     super.viewDidLoad()
     
     view.backgroundColor = .white // TODO: Support dark-mode
-//    view.translatesAutoresizingMaskIntoConstraints = false
     
     stackView.addArrangedSubview(addPeopleButton)
     stackView.addArrangedSubview(addReceiptButton)
@@ -75,7 +74,8 @@ final class BillSetupViewController: UIViewController {
   }
   
   @objc private func didTapAddPeopleButton() {
-    let peopleVC = PeopleViewController()
+    let peopleVC = PeopleViewController(billState: billState)
+    peopleVC.peopleDelegate = self
     navigationController?.pushViewController(peopleVC, animated: true)
   }
   
@@ -85,5 +85,16 @@ final class BillSetupViewController: UIViewController {
   
   @objc private func didTapSettleUpButton() {
     
+  }
+}
+
+extension BillSetupViewController: PeopleDelegate {
+  func didSetPeople(_ people: String) {
+    billState.payers = people.split(separator: "\n").map {
+      PersonModel(name: String($0))
+    }
+    
+    // there has to be a better way LOL
+    addPeopleButton.setTitle("Add people (\(billState.payers.count))", for: .normal)
   }
 }

@@ -16,4 +16,10 @@ struct BillStateModel {
     self.payers = payers
     self.receipt = receipt
   }
+  
+  var payersAsList: String {
+    payers.reduce("") { (result, model) -> String in
+      result + "\n" + model.name
+    }
+  }
 }

@@ -8,18 +8,22 @@
 import UIKit
 
 final class PeopleViewController: UIViewController {
-  private lazy var peopleEntryTextField: UITextField = {
-    let textField = UITextField()
+  private lazy var peopleEntryTextView: UITextView = {
+    let textField = UITextView()
     textField.translatesAutoresizingMaskIntoConstraints = false
+    textField.isEditable = true
+    textField.autocorrectionType = .no
+    textField.autocapitalizationType = .words
     
     return textField
   }()
   
-  private lazy var confirmButton: UIButton = {
+  private lazy var confirmButton: UIButton = { // TODO make ui bar button?
     let button = UIButton()
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("Confirm", for: .normal)
     button.setTitleColor(.black, for: .normal)
+    button.addTarget(nil, action: #selector(didTapConfirmButton), for: .touchUpInside)
     
     return button
   }()
@@ -33,15 +37,39 @@ final class PeopleViewController: UIViewController {
     
     return stackView
   }()
-
+  
+  weak var peopleDelegate: PeopleDelegate?
+  
+  init(billState: BillStateModel) {
+    super.init(nibName: nil, bundle: nil)
+    let text = billState.payersAsList
+    peopleEntryTextView.text = text
+  }
+  
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    stackView.addArrangedSubview(peopleEntryTextField)
+    stackView.addArrangedSubview(peopleEntryTextView)
     stackView.addArrangedSubview(confirmButton)
     
-    view.translatesAutoresizingMaskIntoConstraints = false
+    peopleEntryTextView.pinSides(to: stackView)
+    confirmButton.pinSides(to: stackView)
+    
+    peopleEntryTextView.becomeFirstResponder()
+    
+    view.backgroundColor = .white
     view.addSubview(stackView)
-    stackView.pin(to: view)
+    stackView.pin(to: view.safeAreaLayoutGuide)
+  }
+  
+  @objc func didTapConfirmButton() {
+    peopleDelegate?.didSetPeople(peopleEntryTextView.text) // TODO: Currently there is zero support for editing names.
+    // Operation will CLEAR AND RESET people!
+    peopleEntryTextView.resignFirstResponder()
+    navigationController?.popViewController(animated: true)
   }
 }

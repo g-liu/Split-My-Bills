@@ -9,6 +9,6 @@ import Foundation
 
 /// Describes a person
 struct PersonModel {
-  var id: Int
+  var id = UUID()
   var name: String
 }
