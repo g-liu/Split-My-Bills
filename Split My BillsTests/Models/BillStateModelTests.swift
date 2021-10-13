@@ -96,6 +96,7 @@ final class BillStateModelTests: XCTestCase {
     // once after the adjustments
     // though this could introduce the round-off error again esp. with %age adjustments.
     // So the solution is probably to keep track of WHO to assign the remainders to...
+    // EVEN BETTER!!!! We might need a round-robin system for distributing remainders.
     let item1 = ReceiptItemModel(itemName: "swordfish", itemCost: 2000.amount, payers: [person1, person4])
     let item2 = ReceiptItemModel(itemName: "smoked salmon", itemCost: 1499.amount, payers: [person2, person3])
     
