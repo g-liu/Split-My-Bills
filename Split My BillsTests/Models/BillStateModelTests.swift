@@ -15,8 +15,6 @@ final class BillStateModelTests: XCTestCase {
   private var person4 = PersonModel(name: "ZG")
   private var person5 = PersonModel(name: "JW")
   
-  /* TODO: REWRITE ALL TEST CASES AFTER MAJOR REFACTOR!!!!!!!!!!!!! */
-  
   func testBareZeroCase() {
     let billState = BillStateModel()
     
@@ -203,5 +201,39 @@ final class BillStateModelTests: XCTestCase {
     XCTAssertEqual(result.billLiabilities[person1]?.totalOwed, 667.amount)
     XCTAssertEqual(result.billLiabilities[person2]?.totalOwed, 666.amount)
     XCTAssertEqual(result.billLiabilities[person3]?.totalOwed, 667.amount)
+  }
+  
+  func testBillDivisionWithPercentageAdjustmentDividingUnevenly() {
+    // each: 2000*(1 + 0.1815) / 3 == 787.6666666...
+    let payers = [person1, person2, person3]
+    
+    let item1 = ReceiptItemModel(itemName: "swordfish", itemCost: 2000.amount, payers: payers)
+    let adj1 = ReceiptAdjustmentModel(name: "tip", adjustment: .percentage(18.15.percentage, .runningTotal))
+    
+    let receipt = ReceiptModel(items: [item1], adjustments: [adj1])
+    let billState = BillStateModel(payers: payers, receipt: receipt)
+    
+    let result = billState.splitBill
+    
+    XCTAssertEqual(result.billLiabilities[person1]?.totalOwed, 788.amount)
+    XCTAssertEqual(result.billLiabilities[person2]?.totalOwed, 787.amount)
+    XCTAssertEqual(result.billLiabilities[person3]?.totalOwed, 788.amount)
+  }
+  
+  func testBillDivisionForRoundoffErrorWithHighPercentageAdjustment() {
+    // each: 2000*(1 + 195420)/3 == 130_160_666.666...
+    let payers = [person1, person2, person3]
+    
+    let item1 = ReceiptItemModel(itemName: "swordfish", itemCost: 2000.amount, payers: payers)
+    let adj1 = ReceiptAdjustmentModel(name: "tip", adjustment: .percentage(100.percentage, .runningTotal))
+    
+    let receipt = ReceiptModel(items: [item1], adjustments: [adj1])
+    let billState = BillStateModel(payers: payers, receipt: receipt)
+    
+    let result = billState.splitBill
+    
+    XCTAssertEqual(result.billLiabilities[person1]?.totalOwed, 1334.amount)
+    XCTAssertEqual(result.billLiabilities[person2]?.totalOwed, 1333.amount)
+    XCTAssertEqual(result.billLiabilities[person3]?.totalOwed, 1333.amount)
   }
 }

@@ -51,12 +51,14 @@ struct BillStateModel {
             billByPerson.billLiabilities[person]?.totalOwed += portions[index]
             billByPerson.billLiabilities[person]?.adjustmentsBreakdown[adjustment] = AdjustmentBreakdown(liabilityForAdjustment: Adjustment.amount(portions[index]))
           }
-        case .percentage(let percentage):
-          // TODO VERIFY MATH ON THIS ESP. WITH ROUNDING ERROR!
-          let portionPerPayer = percentage / payers.count
+        case .percentage(let percentage, let applicablePortion):
+          // TODO: ACCOUNT FOR APPLICABLE PORTION
+          // TODO: VERIFY MATH ON THIS ESP. WITH ROUNDING ERROR!
+          // TODO: Yeah this won't work. We should really be taking this as a percentage of the RUNNING TOTAL or SUBTOTAL(!!!)
           payers.forEach { person in
-            billByPerson.billLiabilities[person]?.totalOwed *= portionPerPayer
-            billByPerson.billLiabilities[person]?.adjustmentsBreakdown[adjustment] = AdjustmentBreakdown(liabilityForAdjustment: Adjustment.percentage(portionPerPayer))
+            guard let totalOwed = billByPerson.billLiabilities[person]?.totalOwed else { return }
+            billByPerson.billLiabilities[person]?.totalOwed = totalOwed.adjusted(by: adjustment.adjustment)
+            billByPerson.billLiabilities[person]?.adjustmentsBreakdown[adjustment] = AdjustmentBreakdown(liabilityForAdjustment: adjustment.adjustment)
           }
       }
       

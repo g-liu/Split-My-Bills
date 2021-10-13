@@ -90,4 +90,9 @@ final class AddReceiptItemViewController: UIViewController {
     view.addSubview(stackView)
     stackView.pin(to: view.safeAreaLayoutGuide)
   }
+  
+  deinit {
+    peopleSelectorVC.view.removeFromSuperview()
+    peopleSelectorVC.removeFromParent()
+  }
 }

@@ -48,7 +48,12 @@ struct ReceiptModel {
     }
     
     let grandTotal = adjustments.reduce(itemTotal) { (result, model) -> Amount in
-      result + model.adjustment
+      if case let .percentage(percentageValue, applicablePortion) = model.adjustment,
+         applicablePortion == .subtotal {
+        return result + (itemTotal * percentageValue)
+      }
+      
+      return result.adjusted(by: model.adjustment)
     }
     
     return grandTotal.formatted

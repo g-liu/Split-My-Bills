@@ -23,6 +23,7 @@ class Split_My_BillsUITests: XCTestCase {
     }
 
     func testExample() throws {
+      throw XCTSkip("Not yet implemented")
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()

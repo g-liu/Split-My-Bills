@@ -58,17 +58,17 @@ struct Amount {
     return Amount(rawValue: left.rawValue - right.rawValue)
   }
   
-  static func +(left: Amount, right: Adjustment) -> Amount {
-    switch right {
+  func adjusted(by adjustment: Adjustment) -> Amount {
+    switch adjustment {
       case .amount(let amount):
-        return left + amount
-      case .percentage(let percentage):
-        return left * percentage
+        return self + amount
+      case .percentage(let percentage, _):
+        return self + self * percentage
     }
   }
   
   static func *(left: Amount, right: Percentage) -> Amount {
-    let rawPercentage = Double(right.percent / 100.0 + 1.0)
+    let rawPercentage = Double(right.percent / 100.0)
     return Amount(rawValue: Int(round(Double(left.rawValue) * rawPercentage)))
   }
   

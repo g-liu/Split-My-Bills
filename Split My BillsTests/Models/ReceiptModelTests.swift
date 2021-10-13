@@ -25,7 +25,7 @@ final class ReceiptModelTests: XCTestCase {
   
   func testFormattedTotalOnPercentageAdjustmentsOnlyReceipt() {
     let adjustments = [27, 24, 8.4].map {
-      return ReceiptAdjustmentModel(name: "whatevs", adjustment: .percentage($0.percentage))
+      return ReceiptAdjustmentModel(name: "whatevs", adjustment: .percentage($0.percentage, .runningTotal))
     }
     let receipt = ReceiptModel(adjustments: adjustments)
     
@@ -44,7 +44,7 @@ final class ReceiptModelTests: XCTestCase {
   func testFormattedTotalOnAllAdjustmentsOnlyReceipt() {
     let adjustments = [
       Adjustment.amount(200.amount),
-      Adjustment.percentage(15.percentage),
+      Adjustment.percentage(15.percentage, .runningTotal),
       Adjustment.amount((-50).amount),
     ].map {
       return ReceiptAdjustmentModel(name: "whatevs", adjustment: $0)
@@ -59,7 +59,7 @@ final class ReceiptModelTests: XCTestCase {
     }
     
     let adjustments = [8, 15].map {
-      ReceiptAdjustmentModel(name: "whatevs", adjustment: Adjustment.percentage($0.percentage))
+      ReceiptAdjustmentModel(name: "whatevs", adjustment: Adjustment.percentage($0.percentage, .runningTotal))
     }
     
     let receipt = ReceiptModel(items: items, adjustments: adjustments)
@@ -88,7 +88,7 @@ final class ReceiptModelTests: XCTestCase {
     
     let adjustments = [
       Adjustment.amount(350.amount),
-      Adjustment.percentage(18.5.percentage),
+      Adjustment.percentage(18.5.percentage, .runningTotal),
       Adjustment.amount((-1200).amount),
     ].map {
       ReceiptAdjustmentModel(name: "discount", adjustment: $0)
@@ -134,7 +134,7 @@ final class ReceiptModelTests: XCTestCase {
     var receipt = ReceiptModel(items: items)
     XCTAssertEqual(receipt.formattedTotal, "$30.50")
     
-    receipt.addAdjustment(ReceiptAdjustmentModel(name: "tip", adjustment: Adjustment.percentage(15.percentage)))
+    receipt.addAdjustment(ReceiptAdjustmentModel(name: "tip", adjustment: Adjustment.percentage(15.percentage, .runningTotal)))
     XCTAssertEqual(receipt.formattedTotal, "$35.08")
   }
   
@@ -142,7 +142,7 @@ final class ReceiptModelTests: XCTestCase {
     let items = [2850, 200].map { ReceiptItemModel(itemName: "whatevs", itemCost: $0.amount) }
     let adjustments = [
       ReceiptAdjustmentModel(name: "fee", adjustment: Adjustment.amount(1200.amount)),
-      ReceiptAdjustmentModel(name: "tax", adjustment: Adjustment.percentage(6.percentage)),
+      ReceiptAdjustmentModel(name: "tax", adjustment: Adjustment.percentage(6.percentage, .runningTotal)),
     ]
     var receipt = ReceiptModel(items: items, adjustments: adjustments)
     XCTAssertEqual(receipt.formattedTotal, "$45.05")
@@ -158,7 +158,7 @@ final class ReceiptModelTests: XCTestCase {
     let items = [2850, 200].map { ReceiptItemModel(itemName: "whatevs", itemCost: $0.amount) }
     let adjustments = [
       ReceiptAdjustmentModel(name: "fee", adjustment: Adjustment.amount(1200.amount)),
-      ReceiptAdjustmentModel(name: "tax", adjustment: Adjustment.percentage(6.percentage)),
+      ReceiptAdjustmentModel(name: "tax", adjustment: Adjustment.percentage(6.percentage, .runningTotal)),
     ]
     var receipt = ReceiptModel(items: items, adjustments: adjustments)
     XCTAssertEqual(receipt.formattedTotal, "$45.05")
