@@ -1,5 +1,5 @@
 //
-//  ReceiptItemTableViewCell.swift
+//  ReceiptAdjustmentTableViewCell.swift
 //  Split My Bills
 //
 //  Created by Geoffrey Liu on 10/12/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ReceiptItemTableViewCell: UITableViewCell {
+final class ReceiptAdjustmentTableViewCell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
     setupCell()
@@ -21,11 +21,11 @@ final class ReceiptItemTableViewCell: UITableViewCell {
     
   }
   
-  func configure(with model: ReceiptItemModel) {
-    textLabel?.text = model.itemName
-    detailTextLabel?.text = model.formattedItemCost
+  func configure(with model: AdjustmentModel) {
+    textLabel?.text = model.name
+    detailTextLabel?.text = model.adjustment.formatted
   }
-
+  
 }
 
-extension ReceiptItemTableViewCell: Identifiable { }
+extension ReceiptAdjustmentTableViewCell: Identifiable { }

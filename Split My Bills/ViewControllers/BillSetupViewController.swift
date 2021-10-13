@@ -80,7 +80,8 @@ final class BillSetupViewController: UIViewController {
   }
   
   @objc private func didTapAddReceiptButton() {
-    
+    let receiptVC = ReceiptTableViewController(billState: billState)
+    navigationController?.pushViewController(receiptVC, animated: true)
   }
   
   @objc private func didTapSettleUpButton() {

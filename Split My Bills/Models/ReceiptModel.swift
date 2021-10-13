@@ -10,9 +10,9 @@ import Foundation
 
 /// Describes a receipt including taxes, tips, and adjustments
 struct ReceiptModel {
-  private var items: [ReceiptItemModel]
+  var items: [ReceiptItemModel]
   
-  private var adjustments: [AdjustmentModel]
+  var adjustments: [AdjustmentModel]
   
   init(items: [ReceiptItemModel] = [], adjustments: [AdjustmentModel] = []) {
     self.items = items
