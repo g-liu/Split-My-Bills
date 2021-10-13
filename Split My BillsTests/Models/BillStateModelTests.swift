@@ -60,7 +60,7 @@ final class BillStateModelTests: XCTestCase {
     let result = billState.splitBill
     
     let person1ItemsBreakdown = [
-      item: ItemBreakdown(splitCount: 3, liabilityForItem: 17.amount),
+      item: ItemBreakdown(splitCount: 3, liabilityForItem: 16.amount),
     ]
     
     let person2ItemsBreakdown = [
@@ -68,16 +68,19 @@ final class BillStateModelTests: XCTestCase {
     ]
     
     let person3ItemsBreakdown = [
-      item: ItemBreakdown(splitCount: 3, liabilityForItem: 17.amount),
+      item: ItemBreakdown(splitCount: 3, liabilityForItem: 16.amount),
     ]
     
     XCTAssertEqual(result.billLiabilities[person1]!.totalOwed, 17.amount)
+    XCTAssertEqual(result.billLiabilities[person1]!.remainderOwed, 1.amount)
     XCTAssertEqual(result.billLiabilities[person1]!.itemsBreakdown, person1ItemsBreakdown)
     
     XCTAssertEqual(result.billLiabilities[person2]!.totalOwed, 16.amount)
+    XCTAssertEqual(result.billLiabilities[person2]!.remainderOwed, .zero)
     XCTAssertEqual(result.billLiabilities[person2]!.itemsBreakdown, person2ItemsBreakdown)
     
     XCTAssertEqual(result.billLiabilities[person3]!.totalOwed, 17.amount)
+    XCTAssertEqual(result.billLiabilities[person3]!.remainderOwed, 1.amount)
     XCTAssertEqual(result.billLiabilities[person3]!.itemsBreakdown, person3ItemsBreakdown)
     
     XCTAssertEqual(result.leftoverAmount, .zero)
@@ -87,6 +90,12 @@ final class BillStateModelTests: XCTestCase {
   func testBillDivisionOfTwoItemsUnequallyDividedNoOverlap() {
     let payers = [person1, person2, person3, person4]
     
+    // TODO: These tests are failing because the remainders are distributed at the END
+    // of the whole charade
+    // We should probably have the remainders distributed twice: once after the items,
+    // once after the adjustments
+    // though this could introduce the round-off error again esp. with %age adjustments.
+    // So the solution is probably to keep track of WHO to assign the remainders to...
     let item1 = ReceiptItemModel(itemName: "swordfish", itemCost: 2000.amount, payers: [person1, person4])
     let item2 = ReceiptItemModel(itemName: "smoked salmon", itemCost: 1499.amount, payers: [person2, person3])
     

@@ -71,7 +71,7 @@ final class AmountTests: XCTestCase {
     XCTAssertEqual(result[4], 500.amount)
   }
   
-  func testSplitPortionIndivisibleAmountWithMultipleRemainder() {
+  func testSplitPortionNonDivisibleAmountWithMultipleRemainder() {
     let amount = 4998.amount
     let result = amount.splitPortion(into: 11)
     
