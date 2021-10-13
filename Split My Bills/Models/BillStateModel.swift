@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftPriorityQueue
 
 struct BillStateModel {
   var payers: [PersonModel]
@@ -26,6 +27,9 @@ struct BillStateModel {
   /// Calculates the amount owed by each person
   var splitBill: BillByPerson {
     var billByPerson = BillByPerson(payers: payers)
+    
+//    let remainderTracker = PriorityQueue(ascending: true, startingValues: payers.map( { RemainderPayer(person: $0) }))
+    let remainderTracker = payers.map { RemainderPayer.init(person: $0) }
 
     var runningTotal: Amount = .zero
     var runningRemainder: Amount = .zero
@@ -91,10 +95,26 @@ struct BillStateModel {
     // STEP 3: Split the remainder amount as evenly as possible
     runningRemainder.splitPortion(into: payers.count).enumerated().forEach { index, amount in
       let person = payers[index]
-      billByPerson.billLiabilities[person]?.remainderOwed = amount
       billByPerson.billLiabilities[person]?.totalOwed += amount
     }
 
     return billByPerson
+  }
+}
+
+private struct RemainderTracker {
+  // TODO: Test plain array vs. pq implementation.
+}
+
+private struct RemainderPayer: Comparable {
+  var person: PersonModel
+  var totalRemainderPaid: Amount = .zero
+  
+  static func < (lhs: RemainderPayer, rhs: RemainderPayer) -> Bool {
+    if lhs.totalRemainderPaid == rhs.totalRemainderPaid {
+      return lhs.person < rhs.person
+    }
+    
+    return lhs.totalRemainderPaid < rhs.totalRemainderPaid
   }
 }

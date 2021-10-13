@@ -13,3 +13,9 @@ struct PersonModel {
 }
 
 extension PersonModel: Equatable, Hashable { }
+
+extension PersonModel: Comparable {
+  static func < (lhs: PersonModel, rhs: PersonModel) -> Bool {
+    lhs.name < rhs.name
+  }
+}

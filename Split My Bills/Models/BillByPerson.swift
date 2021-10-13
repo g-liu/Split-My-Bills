@@ -37,7 +37,6 @@ struct BillLiability {
   
   var itemsBreakdown: ItemsBreakdown = .init()
   var adjustmentsBreakdown: AdjustmentsBreakdown = .init()
-  var remainderOwed: Amount = .zero
 }
 extension BillLiability: Equatable, Hashable { }
 
