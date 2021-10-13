@@ -8,6 +8,7 @@
 import XCTest
 @testable import Split_My_Bills
 
+// TODO: TEST WITH NEGATIVE OPERATIONS
 final class AmountTests: XCTestCase {
   func testFormatWholeAmount() {
     let fmtd = 4600.amount.formatted
@@ -25,17 +26,42 @@ final class AmountTests: XCTestCase {
   }
   
   // MARK: - Amount portioning
-  func testPortionZeroAmountIntoOnePart() {
-    // TODO: WRITE
+  func testPortionZeroInto5() {
+    let (quotient, remainder) = Amount.zero.portion(into: 5)
+    XCTAssertEqual(quotient, .zero)
+    XCTAssertEqual(remainder, .zero)
+  }
+  
+  func testPortionByNegativeCount() {
+    let (quotient, remainder) = 5000.amount.portion(into: -2)
+    XCTAssertEqual(quotient, .zero)
+    XCTAssertEqual(remainder, .zero)
   }
   
   func testPortionDivisibleAmount() {
+    let (quotient, remainder) = 5219.amount.portion(into: 40)
+    XCTAssertEqual(quotient, 130.amount)
+    XCTAssertEqual(remainder, 19.amount)
+  }
+  
+  func testPortionNonDivisibleAmount() {
+    let (quotient, remainder) = 5000.amount.portion(into: -2)
+    XCTAssertEqual(quotient, .zero)
+    XCTAssertEqual(remainder, .zero)
+  }
+  
+  // MARK: - Amount splitting into portions
+  func testSplitPortionZeroAmountIntoOnePart() {
     // TODO: WRITE
   }
   
-  func testPortionDivisibleAmountWithOneRemainder() {
+  func testSplitPortionDivisibleAmount() {
+    // TODO: WRITE
+  }
+  
+  func testSplitPortionDivisibleAmountWithOneRemainder() {
     let amount = 2500.amount
-    let result = amount.portion(into: 5)
+    let result = amount.splitPortion(into: 5)
     
     XCTAssertEqual(result.count, 5)
     XCTAssertEqual(result[0], 500.amount)
@@ -45,9 +71,9 @@ final class AmountTests: XCTestCase {
     XCTAssertEqual(result[4], 500.amount)
   }
   
-  func testPortionIndivisibleAmountWithMultipleRemainder() {
+  func testSplitPortionIndivisibleAmountWithMultipleRemainder() {
     let amount = 4998.amount
-    let result = amount.portion(into: 11)
+    let result = amount.splitPortion(into: 11)
     
     let baseOwed = 454.amount
     

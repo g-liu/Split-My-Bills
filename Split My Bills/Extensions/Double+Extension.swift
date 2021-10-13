@@ -11,4 +11,8 @@ extension Double {
   var percentage: Percentage {
     return Percentage(percent: self)
   }
+  
+  var amount: Amount {
+    return Int(self).amount
+  }
 }

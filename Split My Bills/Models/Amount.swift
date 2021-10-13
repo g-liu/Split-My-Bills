@@ -10,6 +10,7 @@ import Foundation
 
 /// Represents the cost of a single item
 struct Amount {
+  typealias PortionWithRemainder = (portion: Amount, remainder: Amount)
   /// A raw representation of the amount, given as the number of cents (or equivalent base denomination)
   /// For example an item costing $10.99 would be represented by the value 1099
   var rawValue: Int
@@ -22,24 +23,36 @@ struct Amount {
   }
   
   
-  /// Portions the amount exactly into the number of pieces given, distributing the remainder as evenly as possible between the divided pieces
+  /// Returns the quotient and remainder Amounts resulting from portioning an Amount into a given number of pieces
   /// - Parameter pieces: the number of portions to divide into. assumes a minimum of 1 piece
-  func portion(into pieces: Int) -> [Amount] {
+  func portion(into pieces: Int) -> PortionWithRemainder {
+    guard pieces > 0 else {
+      return (.zero, .zero)
+    }
+    
+    let quotient = floor(Double(rawValue) / Double(pieces)).amount
+    let remainder = (rawValue % pieces).amount
+    
+    return (quotient, remainder)
+  }
+  
+  /// Portions the amount exactly into the number of pieces given, distributing the remainder as evenly as possible between the divided amounts
+  /// - Parameter pieces: the number of portions to divide into. assumes a minimum of 1 piece
+  func splitPortion(into pieces: Int) -> [Amount] {
     guard pieces > 0 else {
       return []
     }
     
-    let quotient = Int(floor(Double(rawValue) / Double(pieces)))
-    let remainder = rawValue % pieces
+    let (quotient, remainder) = portion(into: pieces)
     
-    var divisions = Array(repeating: quotient.amount, count: pieces)
-    
-    if remainder > 0 {
-      let lowStepSize = pieces / remainder
+    var divisions = Array(repeating: quotient, count: pieces)
+
+    if remainder > 0.amount {
+      let lowStepSize = pieces / remainder.rawValue
       let highStepSize = lowStepSize + 1
       let stepPattern = [highStepSize, lowStepSize]
       var lastDivisionIndex: Int = 0
-      (0..<remainder).forEach {
+      (0..<remainder.rawValue).forEach {
         divisions[lastDivisionIndex] += 1.amount
         let stepSize = stepPattern[$0 % stepPattern.count]
         lastDivisionIndex += stepSize
@@ -93,3 +106,9 @@ extension Amount {
 
 
 extension Amount: Equatable, Hashable { }
+
+extension Amount: Comparable {
+  static func < (lhs: Amount, rhs: Amount) -> Bool {
+    lhs.rawValue < rhs.rawValue
+  }
+}

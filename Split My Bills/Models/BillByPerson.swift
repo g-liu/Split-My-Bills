@@ -33,24 +33,21 @@ struct BillLiability {
   typealias ItemsBreakdown = [ReceiptItemModel: ItemBreakdown]
   typealias AdjustmentsBreakdown = [ReceiptAdjustmentModel: AdjustmentBreakdown]
   
-  var totalOwed: Amount
+  var totalOwed: Amount = .zero
   
-  var itemsBreakdown: ItemsBreakdown
-  var adjustmentsBreakdown: AdjustmentsBreakdown
-  
-  init(itemsBreakdown: ItemsBreakdown = [:], adjustmentsBreakdown: AdjustmentsBreakdown = [:]) {
-    self.totalOwed = .zero
-    self.itemsBreakdown = itemsBreakdown
-    self.adjustmentsBreakdown = adjustmentsBreakdown
-  }
+  var itemsBreakdown: ItemsBreakdown = .init()
+  var adjustmentsBreakdown: AdjustmentsBreakdown = .init()
+  var remainderOwed: Amount = .zero
 }
 extension BillLiability: Equatable, Hashable { }
+
 
 struct ItemBreakdown {
   var splitCount: Int
   var liabilityForItem: Amount
 }
 extension ItemBreakdown: Equatable, Hashable { }
+
 
 struct AdjustmentBreakdown {
   var liabilityForAdjustment: Adjustment
