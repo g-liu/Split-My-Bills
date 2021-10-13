@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct AdjustmentModel {
+struct ReceiptAdjustmentModel {
   var name: String
   var adjustment: Adjustment
 }
+
+extension ReceiptAdjustmentModel: Hashable { }

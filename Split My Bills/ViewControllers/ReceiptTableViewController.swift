@@ -99,7 +99,7 @@ extension ReceiptTableViewController {
     
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptAdjustmentTableViewCell.identifier) as? ReceiptAdjustmentTableViewCell else { return UITableViewCell() }
     
-    let fakeAssAdjustment = AdjustmentModel(name: "tip", adjustment: .percentage(15.0.percentage))
+    let fakeAssAdjustment = ReceiptAdjustmentModel(name: "tip", adjustment: .percentage(15.0.percentage))
     cell.configure(with: fakeAssAdjustment)
     return cell
   }

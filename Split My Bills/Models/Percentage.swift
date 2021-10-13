@@ -31,6 +31,10 @@ struct Percentage {
     nf.locale = Locale.current
     return nf.string(from: NSNumber(value: percent / 100.0))!
   }
+  
+  static func /(left: Percentage, right: Int) -> Percentage {
+    Percentage(percent: left.percent / Double(right))
+  }
 }
 
 extension Percentage {

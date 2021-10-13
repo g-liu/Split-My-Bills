@@ -24,3 +24,5 @@ enum Adjustment {
     }
   }
 }
+
+extension Adjustment: Equatable, Hashable { }

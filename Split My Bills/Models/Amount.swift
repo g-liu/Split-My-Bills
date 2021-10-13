@@ -21,6 +21,35 @@ struct Amount {
     return nf.string(from: NSNumber(value: Double(rawValue) / 100.0))!
   }
   
+  
+  /// Portions the amount exactly into the number of pieces given, distributing the remainder as evenly as possible between the divided pieces
+  /// - Parameter pieces: the number of portions to divide into. assumes a minimum of 1 piece
+  func portion(into pieces: Int) -> [Amount] {
+    guard pieces > 0 else {
+      return []
+    }
+    
+    let quotient = Int(floor(Double(rawValue) / Double(pieces)))
+    let remainder = rawValue % pieces
+    
+    var divisions = Array(repeating: quotient.amount, count: pieces)
+    
+    if remainder > 0 {
+      let lowStepSize = pieces / remainder
+      let highStepSize = lowStepSize + 1
+      let stepPattern = [highStepSize, lowStepSize]
+      var lastDivisionIndex: Int = 0
+      (0..<remainder).forEach {
+        divisions[lastDivisionIndex] += 1.amount
+        let stepSize = stepPattern[$0 % stepPattern.count]
+        lastDivisionIndex += stepSize
+        lastDivisionIndex %= pieces
+      }
+    }
+    
+    return divisions
+  }
+  
   static func +(left: Amount, right: Amount) -> Amount {
     return Amount(rawValue: left.rawValue + right.rawValue)
   }
@@ -48,8 +77,12 @@ struct Amount {
     return Amount(rawValue: rawValue)
   }
   
-  static func +=(left: inout Amount, right: Amount) -> Amount {
-    return left + right
+  static func +=(left: inout Amount, right: Amount) {
+    left = left + right
+  }
+  
+  static func *=(left: inout Amount, right: Percentage) {
+    left = left * right
   }
 }
 

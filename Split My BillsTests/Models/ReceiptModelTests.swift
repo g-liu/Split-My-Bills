@@ -25,7 +25,7 @@ final class ReceiptModelTests: XCTestCase {
   
   func testFormattedTotalOnPercentageAdjustmentsOnlyReceipt() {
     let adjustments = [27, 24, 8.4].map {
-      return AdjustmentModel(name: "whatevs", adjustment: .percentage($0.percentage))
+      return ReceiptAdjustmentModel(name: "whatevs", adjustment: .percentage($0.percentage))
     }
     let receipt = ReceiptModel(adjustments: adjustments)
     
@@ -34,7 +34,7 @@ final class ReceiptModelTests: XCTestCase {
   
   func testFormattedTotalOnAmountAdjustmentsOnlyReceipt() {
     let adjustments = [499, 1200, -560].map {
-      return AdjustmentModel(name: "whatevs", adjustment: .amount($0.amount))
+      return ReceiptAdjustmentModel(name: "whatevs", adjustment: .amount($0.amount))
     }
     let receipt = ReceiptModel(adjustments: adjustments)
     
@@ -47,7 +47,7 @@ final class ReceiptModelTests: XCTestCase {
       Adjustment.percentage(15.percentage),
       Adjustment.amount((-50).amount),
     ].map {
-      return AdjustmentModel(name: "whatevs", adjustment: $0)
+      return ReceiptAdjustmentModel(name: "whatevs", adjustment: $0)
     }
     let receipt = ReceiptModel(adjustments: adjustments)
     XCTAssertEqual(receipt.formattedTotal, "$1.80")
@@ -59,7 +59,7 @@ final class ReceiptModelTests: XCTestCase {
     }
     
     let adjustments = [8, 15].map {
-      AdjustmentModel(name: "whatevs", adjustment: Adjustment.percentage($0.percentage))
+      ReceiptAdjustmentModel(name: "whatevs", adjustment: Adjustment.percentage($0.percentage))
     }
     
     let receipt = ReceiptModel(items: items, adjustments: adjustments)
@@ -73,7 +73,7 @@ final class ReceiptModelTests: XCTestCase {
     }
     
     let adjustments = [-199].map {
-      AdjustmentModel(name: "discount", adjustment: .amount($0.amount))
+      ReceiptAdjustmentModel(name: "discount", adjustment: .amount($0.amount))
     }
     
     let receipt = ReceiptModel(items: items, adjustments: adjustments)
@@ -91,7 +91,7 @@ final class ReceiptModelTests: XCTestCase {
       Adjustment.percentage(18.5.percentage),
       Adjustment.amount((-1200).amount),
     ].map {
-      AdjustmentModel(name: "discount", adjustment: $0)
+      ReceiptAdjustmentModel(name: "discount", adjustment: $0)
     }
     
     let receipt = ReceiptModel(items: items, adjustments: adjustments)
@@ -134,15 +134,15 @@ final class ReceiptModelTests: XCTestCase {
     var receipt = ReceiptModel(items: items)
     XCTAssertEqual(receipt.formattedTotal, "$30.50")
     
-    receipt.addAdjustment(AdjustmentModel(name: "tip", adjustment: Adjustment.percentage(15.percentage)))
+    receipt.addAdjustment(ReceiptAdjustmentModel(name: "tip", adjustment: Adjustment.percentage(15.percentage)))
     XCTAssertEqual(receipt.formattedTotal, "$35.08")
   }
   
   func testRemoveNonExistentAdjustmentFromReceipt() {
     let items = [2850, 200].map { ReceiptItemModel(itemName: "whatevs", itemCost: $0.amount) }
     let adjustments = [
-      AdjustmentModel(name: "fee", adjustment: Adjustment.amount(1200.amount)),
-      AdjustmentModel(name: "tax", adjustment: Adjustment.percentage(6.percentage)),
+      ReceiptAdjustmentModel(name: "fee", adjustment: Adjustment.amount(1200.amount)),
+      ReceiptAdjustmentModel(name: "tax", adjustment: Adjustment.percentage(6.percentage)),
     ]
     var receipt = ReceiptModel(items: items, adjustments: adjustments)
     XCTAssertEqual(receipt.formattedTotal, "$45.05")
@@ -157,8 +157,8 @@ final class ReceiptModelTests: XCTestCase {
   func testRemoveAdjustmentFromReceipt() {
     let items = [2850, 200].map { ReceiptItemModel(itemName: "whatevs", itemCost: $0.amount) }
     let adjustments = [
-      AdjustmentModel(name: "fee", adjustment: Adjustment.amount(1200.amount)),
-      AdjustmentModel(name: "tax", adjustment: Adjustment.percentage(6.percentage)),
+      ReceiptAdjustmentModel(name: "fee", adjustment: Adjustment.amount(1200.amount)),
+      ReceiptAdjustmentModel(name: "tax", adjustment: Adjustment.percentage(6.percentage)),
     ]
     var receipt = ReceiptModel(items: items, adjustments: adjustments)
     XCTAssertEqual(receipt.formattedTotal, "$45.05")
