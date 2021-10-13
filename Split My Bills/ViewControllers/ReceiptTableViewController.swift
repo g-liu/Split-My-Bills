@@ -71,67 +71,37 @@ extension ReceiptTableViewController {
   }
   
   private func cellForItemsSection(_ indexPath: IndexPath) -> UITableViewCell {
-    if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-      // this is the last row and should be "ADD CELL"
-      // TODO: REPLACE WITH A BETTER "ADD" cell
-      guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell") else { return UITableViewCell() }
-      
-      cell.textLabel?.text = "Add item"
-      return cell
-    }
+//    if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+//      // this is the last row and should be "ADD CELL"
+//      // TODO: REPLACE WITH A BETTER "ADD" cell
+//      guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell") else { return UITableViewCell() }
+//
+//      cell.textLabel?.text = "Add item"
+//      return cell
+//    }
     
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptItemTableViewCell.identifier) as? ReceiptItemTableViewCell else { return UITableViewCell() }
     
-    let fakeAssModel = ReceiptItemModel(itemName: "BABA BOOEY", itemCost: Amount(rawValue: 1499))
-    cell.configure(with: fakeAssModel)
+//    let fakeAssModel = ReceiptItemModel(itemName: "BABA BOOEY", itemCost: Amount(rawValue: 1499))
+//    cell.configure(with: fakeAssModel)
     return cell
   }
   
   private func cellForAdjustmentsSection(_ indexPath: IndexPath) -> UITableViewCell {
-    if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-      // this is the last row and should be "ADD CELL"
-      // TODO: REPLACE WITH A BETTER "ADD" cell
-      guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell") else { return UITableViewCell() }
-      
-      cell.textLabel?.text = "Add item"
-      return cell
-    }
+//    if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+//      // this is the last row and should be "ADD CELL"
+//      // TODO: REPLACE WITH A BETTER "ADD" cell
+//      guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell") else { return UITableViewCell() }
+//
+//      cell.textLabel?.text = "Add item"
+//      return cell
+//    }
     
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptAdjustmentTableViewCell.identifier) as? ReceiptAdjustmentTableViewCell else { return UITableViewCell() }
     
-    let fakeAssAdjustment = AdjustmentModel(name: "tip", adjustment: .percentage(15.0.percentage))
-    cell.configure(with: fakeAssAdjustment)
+//    let fakeAssAdjustment = AdjustmentModel(name: "tip", adjustment: .percentage(15.0.percentage))
+//    cell.configure(with: fakeAssAdjustment)
     return cell
-  }
-  
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    switch indexPath.section {
-      case 0:
-        didSelectCellInItemsSection(indexPath)
-      case 1:
-        didSelectCellInAdjustmentsSection(indexPath)
-      case 2:
-        // no-op
-        break
-      default:
-        // no-op
-        break
-    }
-  }
-  
-  private func didSelectCellInItemsSection(_ indexPath: IndexPath) {
-    if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-      // this means they pressed "add item"
-      let addItemVC = AddReceiptItemViewController()
-      navigationController?.present(addItemVC, animated: true, completion: nil)
-    }
-  }
-  
-  private func didSelectCellInAdjustmentsSection(_ indexPath: IndexPath) {
-    if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-      // this means they pressed "add item"
-      
-    }
   }
   
   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

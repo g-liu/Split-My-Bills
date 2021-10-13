@@ -36,7 +36,6 @@
 		6C3E2D3627164C90008ACD29 /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D3527164C90008ACD29 /* PeopleViewController.swift */; };
 		6C3E2D60271659CA008ACD29 /* PeopleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D5F271659CA008ACD29 /* PeopleDelegate.swift */; };
 		6CF3FDB927166306002C612F /* ReceiptAdjustmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF3FDB827166306002C612F /* ReceiptAdjustmentTableViewCell.swift */; };
-		6CF3FDBE27166683002C612F /* AddReceiptItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF3FDBD27166683002C612F /* AddReceiptItemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +91,6 @@
 		6C3E2D3527164C90008ACD29 /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		6C3E2D5F271659CA008ACD29 /* PeopleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleDelegate.swift; sourceTree = "<group>"; };
 		6CF3FDB827166306002C612F /* ReceiptAdjustmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptAdjustmentTableViewCell.swift; sourceTree = "<group>"; };
-		6CF3FDBD27166683002C612F /* AddReceiptItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReceiptItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,7 +194,6 @@
 				6C3E2C0627160909008ACD29 /* ReceiptTableViewController.swift */,
 				6C3E2D2B2716481F008ACD29 /* BillSetupViewController.swift */,
 				6C3E2D3527164C90008ACD29 /* PeopleViewController.swift */,
-				6CF3FDBD27166683002C612F /* AddReceiptItemViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -386,7 +383,6 @@
 				6C3E2CCB27161CCE008ACD29 /* Percentage.swift in Sources */,
 				6C3E2C4E27160E6B008ACD29 /* ReceiptItemModel.swift in Sources */,
 				6C3E2D60271659CA008ACD29 /* PeopleDelegate.swift in Sources */,
-				6CF3FDBE27166683002C612F /* AddReceiptItemViewController.swift in Sources */,
 				6C3E2CFD27162AB1008ACD29 /* Double+Extension.swift in Sources */,
 				6CF3FDB927166306002C612F /* ReceiptAdjustmentTableViewCell.swift in Sources */,
 				6C3E2D2C2716481F008ACD29 /* BillSetupViewController.swift in Sources */,
