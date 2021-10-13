@@ -14,7 +14,7 @@ final class BillSetupViewController: UIViewController {
     let button = UIButton()
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("Add people", for: .normal)
-    button.setTitleColor(.black, for: .normal) // TODO: DARK MODE?
+    button.setTitleColor(.label, for: .normal) // TODO: DARK MODE?
     button.addTarget(nil, action: #selector(didTapAddPeopleButton), for: .touchUpInside)
     
     return button
@@ -24,7 +24,7 @@ final class BillSetupViewController: UIViewController {
     let button = UIButton()
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("Add receipt", for: .normal)
-    button.setTitleColor(.black, for: .normal) // TODO: DARK MODE?
+    button.setTitleColor(.label, for: .normal) // TODO: DARK MODE?
     button.addTarget(nil, action: #selector(didTapAddReceiptButton), for: .touchUpInside)
     
     return button
@@ -34,7 +34,7 @@ final class BillSetupViewController: UIViewController {
     let button = UIButton()
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("Settle up", for: .normal)
-    button.setTitleColor(.black, for: .normal) // TODO: DARK MODE?
+    button.setTitleColor(.label, for: .normal) // TODO: DARK MODE?
     button.addTarget(nil, action: #selector(didTapSettleUpButton), for: .touchUpInside)
     
     return button
@@ -63,7 +63,7 @@ final class BillSetupViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.backgroundColor = .white // TODO: Support dark-mode
+    view.backgroundColor = .systemBackground // TODO: Support dark-mode
     
     stackView.addArrangedSubview(addPeopleButton)
     stackView.addArrangedSubview(addReceiptButton)

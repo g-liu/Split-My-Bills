@@ -12,3 +12,5 @@ struct PersonModel {
   var id = UUID()
   var name: String
 }
+
+extension PersonModel: Equatable, Hashable { }

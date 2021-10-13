@@ -22,7 +22,7 @@ final class PeopleViewController: UIViewController {
     let button = UIButton()
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("Confirm", for: .normal)
-    button.setTitleColor(.black, for: .normal)
+    button.setTitleColor(.label, for: .normal)
     button.addTarget(nil, action: #selector(didTapConfirmButton), for: .touchUpInside)
     
     return button
@@ -61,7 +61,7 @@ final class PeopleViewController: UIViewController {
     
     peopleEntryTextView.becomeFirstResponder()
     
-    view.backgroundColor = .white
+    view.backgroundColor = .systemBackground
     view.addSubview(stackView)
     stackView.pin(to: view.safeAreaLayoutGuide)
   }

@@ -53,4 +53,26 @@ struct ReceiptModel {
     
     return grandTotal.formatted
   }
+  
+  
+  /// Calculates the amount owed by each person
+  var splitBill: [PersonModel: Amount] {
+    var owed: [PersonModel: Amount] = [:]
+    
+    
+    items.forEach { item in
+      item.payers.forEach { person in
+        // TODO: NEED A FAIRER ALGORITHM TO DIVIDE REMAINDERS
+        owed[person, default: 0.amount] += item.itemCost / item.payers.count
+      }
+    }
+    
+    // TODO: HERE WE NEED TO GET TOTAL # of payers
+    // MERGE WITH BillStatemodel
+//    adjustments.forEach { adjustment in
+//      owed[person, default: 0.amount] += adjustment.adjustment /
+//    }
+    
+    return owed
+  }
 }

@@ -122,7 +122,7 @@ extension ReceiptTableViewController {
   private func didSelectCellInItemsSection(_ indexPath: IndexPath) {
     if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
       // this means they pressed "add item"
-      let addItemVC = AddReceiptItemViewController()
+      let addItemVC = AddReceiptItemViewController(billState: billState)
       navigationController?.present(addItemVC, animated: true, completion: nil)
     }
   }
