@@ -1,5 +1,5 @@
 //
-//  RW_BillModel.swift
+//  BillModel.swift
 //  Split My Bills
 //
 //  Created by Geoffrey Liu on 10/13/21.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct RW_BillModel {
-  var payers: [RW_Payer] = []
+struct BillModel {
+  var payers: [PayerModel] = []
   
-  var items: [RW_ReceiptItemModel] = []
-  var adjustments: [RW_ReceiptAdjustmentModel] = []
+  var items: [ReceiptItem] = []
+  var adjustments: [ReceiptAdjustment] = []
   
   var subtotal: Amount { items.reduce(Amount.zero) { $0 + $1.itemCost } }
   
@@ -19,8 +19,8 @@ struct RW_BillModel {
     payers.reduce("") { $0 + "\n" + $1.person.name }
   }
   
-  var splitBill: RW_BillBreakdownModel {
-    var breakdown = RW_BillBreakdownModel(payers: payers)
+  var splitBill: BillBreakdownModel {
+    var breakdown = BillBreakdownModel(payers: payers)
     
     // Step 1: Split items
     items.forEach { item in
@@ -35,13 +35,13 @@ struct RW_BillModel {
         let payer = payers[index]
         
         guard isPaying else {
-          let itemBreakdown = RW_ItemBreakdown(item: item, costToPayer: .zero)
+          let itemBreakdown = ItemBreakdown(item: item, costToPayer: .zero)
           breakdown.perPayerItemsBreakdown[payer]?.itemsBreakdown.append(itemBreakdown)
           
           return
         }
         
-        let itemBreakdown = RW_ItemBreakdown(item: item, costToPayer: costPerPayer)
+        let itemBreakdown = ItemBreakdown(item: item, costToPayer: costPerPayer)
         breakdown.perPayerItemsBreakdown[payer]?.itemsBreakdown.append(itemBreakdown)
       }
       
@@ -77,7 +77,7 @@ struct RW_BillModel {
     return breakdown
   }
   
-  private func applyCostAdjustment(_ adjustmentModel: RW_ReceiptAdjustmentModel, cost: Amount, to breakdown: inout RW_BillBreakdownModel) -> Double {
+  private func applyCostAdjustment(_ adjustmentModel: ReceiptAdjustment, cost: Amount, to breakdown: inout BillBreakdownModel) -> Double {
     var runningRemainder: Double = 0.0
     payers.forEach { payer in
       guard let payerPortion = breakdown.perPayerAdjustmentsBreakdown[payer]?.percentageOfSubtotal else { return }
@@ -85,7 +85,7 @@ struct RW_BillModel {
       let adjustmentCostToPayer = cost * payerPortion
       let adjustmentCostRemaining = cost % payerPortion
       
-      let adjustmentBreakdown = RW_AdjustmentBreakdown(adjustment: adjustmentModel, costEquivalentToPayer: adjustmentCostToPayer)
+      let adjustmentBreakdown = AdjustmentBreakdown(adjustment: adjustmentModel, costEquivalentToPayer: adjustmentCostToPayer)
       breakdown.perPayerAdjustmentsBreakdown[payer]?.adjustmentsBreakdown.append(adjustmentBreakdown)
       
       runningRemainder += adjustmentCostRemaining
@@ -93,24 +93,4 @@ struct RW_BillModel {
     
     return runningRemainder
   }
-}
-
-struct RW_Payer: Hashable {
-  var person: PersonModel
-  var remaindersPaid: Amount = .zero
-}
-
-struct RW_ReceiptItemModel {
-  var itemName: String
-  var itemCost: Amount
-  
-  var whoIsPaying: [Bool] // this needs to be coupled MUCH closer to RW_BillModel, at least the same count
-  
-  var isSomeonePaying: Bool { whoIsPaying.contains(true) }
-  var numPayers: Int { whoIsPaying.sum }
-}
-
-struct RW_ReceiptAdjustmentModel {
-  var adjustmentName: String
-  var adjustment: Adjustment
 }

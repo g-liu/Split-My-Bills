@@ -8,7 +8,7 @@
 import UIKit
 
 final class AddReceiptItemViewController: UIViewController {
-  private let billModel: RW_BillModel
+  private let billModel: BillModel
   
   private lazy var nameField: UITextField = {
     let textField = UITextField()
@@ -61,7 +61,7 @@ final class AddReceiptItemViewController: UIViewController {
     return vc
   }()
   
-  init(billModel: RW_BillModel) {
+  init(billModel: BillModel) {
     self.billModel = billModel
     super.init(nibName: nil, bundle: nil)
   }

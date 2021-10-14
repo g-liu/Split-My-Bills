@@ -40,7 +40,7 @@ final class PeopleViewController: UIViewController {
   
   weak var peopleDelegate: PeopleDelegate?
   
-  init(billModel: RW_BillModel) {
+  init(billModel: BillModel) {
     super.init(nibName: nil, bundle: nil)
     let text = billModel.payersNewlineDelineatedList
     peopleEntryTextView.text = text

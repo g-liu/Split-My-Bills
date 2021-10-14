@@ -21,7 +21,7 @@ final class ReceiptAdjustmentTableViewCell: UITableViewCell {
     
   }
   
-  func configure(with model: RW_ReceiptAdjustmentModel) {
+  func configure(with model: ReceiptAdjustment) {
     textLabel?.text = model.adjustmentName
     detailTextLabel?.text = model.adjustment.formatted
   }

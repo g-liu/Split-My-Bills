@@ -8,7 +8,7 @@
 import UIKit
 
 final class PeopleSelectorViewController: UIViewController {
-  private let billModel: RW_BillModel
+  private let billModel: BillModel
   
   lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -63,7 +63,7 @@ final class PeopleSelectorViewController: UIViewController {
     return stackView
   }()
   
-  init(billModel: RW_BillModel) {
+  init(billModel: BillModel) {
     self.billModel = billModel
     super.init(nibName: nil, bundle: nil)
     

@@ -13,13 +13,13 @@ final class RW_BillModelTests: XCTestCase {
   
   func testBillSplitSingleDivisibleItem() {
     let people: [PersonModel] = ["GL", "AB", "CD"].map { PersonModel(name: $0) }
-    let payers: [RW_Payer] = people.map { RW_Payer(person: $0) }
+    let payers: [PayerModel] = people.map { PayerModel(person: $0) }
     
-    let items: [RW_ReceiptItemModel] = [
+    let items: [ReceiptItem] = [
       .init(itemName: "J1", itemCost: 1500.amount, whoIsPaying: [true,true,true]),
     ]
     
-    let bill = RW_BillModel(payers: payers, items: items)
+    let bill = BillModel(payers: payers, items: items)
     let result = bill.splitBill
     
     XCTAssertEqual(result.perPayerItemsBreakdown.count, 3)
@@ -36,14 +36,14 @@ final class RW_BillModelTests: XCTestCase {
   
   func testBillSplitMultipleDivisibleItems() {
     let people: [PersonModel] = ["GL", "AB", "CD"].map { PersonModel(name: $0) }
-    let payers: [RW_Payer] = people.map { RW_Payer(person: $0) }
+    let payers: [PayerModel] = people.map { PayerModel(person: $0) }
     
-    let items: [RW_ReceiptItemModel] = [
+    let items: [ReceiptItem] = [
       .init(itemName: "J1", itemCost: 1500.amount, whoIsPaying: [true,true,true]),
       .init(itemName: "J2", itemCost: 2442.amount, whoIsPaying: [true,true,true]),
     ]
     
-    let bill = RW_BillModel(payers: payers, items: items)
+    let bill = BillModel(payers: payers, items: items)
     let result = bill.splitBill
     
     XCTAssertEqual(result.perPayerItemsBreakdown[payers[0]]?.itemsSubtotal, 1314.amount)
@@ -61,15 +61,15 @@ final class RW_BillModelTests: XCTestCase {
   
   func testBillUnevenlySplitMultipleDivisbleItems() {
     let people: [PersonModel] = ["GL", "AB", "CD"].map { PersonModel(name: $0) }
-    let payers: [RW_Payer] = people.map { RW_Payer(person: $0) }
+    let payers: [PayerModel] = people.map { PayerModel(person: $0) }
     
-    let items: [RW_ReceiptItemModel] = [
+    let items: [ReceiptItem] = [
       .init(itemName: "J1", itemCost: 2500.amount, whoIsPaying: [true,false,true]), // 1250 per
       .init(itemName: "J2", itemCost: 2445.amount, whoIsPaying: [true,true,true]), // 815 per
       .init(itemName: "J3", itemCost: 776.amount, whoIsPaying: [false,true,true]), // 388 per
     ]
     
-    let bill = RW_BillModel(payers: payers, items: items)
+    let bill = BillModel(payers: payers, items: items)
     let result = bill.splitBill
     
     XCTAssertEqual(result.perPayerItemsBreakdown[payers[0]]?.itemsSubtotal, 2065.amount)
@@ -91,17 +91,17 @@ final class RW_BillModelTests: XCTestCase {
   
   func testBillSplitSingleDivisibleItemWithDivisibleAdjustment() {
     let people: [PersonModel] = ["GL", "AB", "CD"].map { PersonModel(name: $0) }
-    let payers: [RW_Payer] = people.map { RW_Payer(person: $0) }
+    let payers: [PayerModel] = people.map { PayerModel(person: $0) }
     
-    let items: [RW_ReceiptItemModel] = [
+    let items: [ReceiptItem] = [
       .init(itemName: "J1", itemCost: 1500.amount, whoIsPaying: [true,true,true]),
     ]
     
-    let adjustments: [RW_ReceiptAdjustmentModel] = [
+    let adjustments: [ReceiptAdjustment] = [
       .init(adjustmentName: "tax", adjustment: .percentage(15.percentage, .runningTotal))
     ]
     
-    let bill = RW_BillModel(payers: payers, items: items, adjustments: adjustments)
+    let bill = BillModel(payers: payers, items: items, adjustments: adjustments)
     let result = bill.splitBill
     
     XCTAssertEqual(result.perPayerItemsBreakdown.count, 3)

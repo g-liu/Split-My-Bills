@@ -8,7 +8,7 @@
 import UIKit
 
 final class BillSetupViewController: UIViewController {
-  private var billModel: RW_BillModel
+  private var billModel: BillModel
   
   lazy var addPeopleButton: UIButton = {
     let button = UIButton()
@@ -50,7 +50,7 @@ final class BillSetupViewController: UIViewController {
     return stackView
   }()
   
-  init(billModel: RW_BillModel = .init()) {
+  init(billModel: BillModel = .init()) {
     self.billModel = billModel
     super.init(nibName: nil, bundle: nil)
   }
@@ -93,7 +93,7 @@ extension BillSetupViewController: PeopleDelegate {
   func didSetPeople(_ people: String) {
     billModel.payers = people.split(separator: "\n").map {
       let person = PersonModel(name: String($0))
-      return RW_Payer(person: person)
+      return PayerModel(person: person)
     }
     
     // there has to be a better way LOL

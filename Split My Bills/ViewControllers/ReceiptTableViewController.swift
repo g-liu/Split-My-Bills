@@ -8,9 +8,9 @@
 import UIKit
 
 final class ReceiptTableViewController: UITableViewController {
-  var billModel: RW_BillModel
+  var billModel: BillModel
   
-  init(billModel: RW_BillModel) {
+  init(billModel: BillModel) {
     self.billModel = billModel
     super.init(nibName: nil, bundle: nil)
   }
@@ -82,7 +82,7 @@ extension ReceiptTableViewController {
     
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptItemTableViewCell.identifier) as? ReceiptItemTableViewCell else { return UITableViewCell() }
     
-    let fakeAssModel = RW_ReceiptItemModel(itemName: "BABA BOOEY", itemCost: Amount(rawValue: 1499), whoIsPaying: Array(repeating: true, count: billModel.payers.count))
+    let fakeAssModel = ReceiptItem(itemName: "BABA BOOEY", itemCost: Amount(rawValue: 1499), whoIsPaying: Array(repeating: true, count: billModel.payers.count))
     cell.configure(with: fakeAssModel)
     return cell
   }
@@ -99,7 +99,7 @@ extension ReceiptTableViewController {
     
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptAdjustmentTableViewCell.identifier) as? ReceiptAdjustmentTableViewCell else { return UITableViewCell() }
     
-    let fakeAssAdjustment = RW_ReceiptAdjustmentModel(adjustmentName: "tip", adjustment: .percentage(15.0.percentage, .runningTotal))
+    let fakeAssAdjustment = ReceiptAdjustment(adjustmentName: "tip", adjustment: .percentage(15.0.percentage, .runningTotal))
     cell.configure(with: fakeAssAdjustment)
     return cell
   }

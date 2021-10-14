@@ -21,7 +21,7 @@ final class ReceiptItemTableViewCell: UITableViewCell {
     
   }
   
-  func configure(with model: RW_ReceiptItemModel) {
+  func configure(with model: ReceiptItem) {
     textLabel?.text = model.itemName
     detailTextLabel?.text = model.itemCost.formatted
   }
