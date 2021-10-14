@@ -44,7 +44,6 @@ struct RW_ItemsBreakdown {
 
 struct RW_ItemBreakdown {
   var item: RW_ReceiptItemModel
-  var numPayers: Int
   var costToPayer: Amount
 }
 

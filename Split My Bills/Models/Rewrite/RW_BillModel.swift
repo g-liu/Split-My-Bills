@@ -28,10 +28,16 @@ struct RW_BillModel {
       let (costPerPayer, remainder) = item.itemCost.portion(into: item.numPayers)
       
       item.whoIsPaying.enumerated().forEach { index, isPaying in
-        guard isPaying else { return }
-        
         let payer = payers[index]
-        let itemBreakdown = RW_ItemBreakdown(item: item, numPayers: item.numPayers, costToPayer: costPerPayer)
+        
+        guard isPaying else {
+          let itemBreakdown = RW_ItemBreakdown(item: item, costToPayer: .zero)
+          breakdown.perPayerItemsBreakdown[payer]?.itemsBreakdown.append(itemBreakdown)
+          
+          return
+        }
+        
+        let itemBreakdown = RW_ItemBreakdown(item: item, costToPayer: costPerPayer)
         breakdown.perPayerItemsBreakdown[payer]?.itemsBreakdown.append(itemBreakdown)
       }
       
