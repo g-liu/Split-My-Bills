@@ -7,20 +7,21 @@
 
 import Foundation
 
+// TODO: MAY NOT NEED THIS ANYMORE
 struct BillByPerson {
-  var billLiabilities: [PersonModel: BillLiability]
-  var leftoverItems: BillLiability
+  var billLiabilities: [PersonModel: BillLiability] /* TODO: Could be derived from Receipt model and this file gotten rid of (except for leftover) */
+  var leftoverItems: [ReceiptItemModel]
   
   var leftoverAmount: Amount {
-    leftoverItems.itemsBreakdown.reduce(Amount.zero) { (result, itemBreakdown) -> Amount in
-      let (_, breakdown) = itemBreakdown
-      return result + breakdown.liabilityForItem
+    leftoverItems.reduce(Amount.zero) {
+      $0 + $1.itemCost
     }
   }
   
-  init(payers: [PersonModel]) {
-    leftoverItems = .init()
-    self.billLiabilities = payers.reduce([:], { (result, personModel) -> [PersonModel: BillLiability] in
+  init(people: [PersonModel]) {
+    leftoverItems = []
+    self.billLiabilities = people.reduce([:], { (result, personModel) -> [PersonModel: BillLiability] in
+      // TODO: There has to be a better way to init.
       var dict = result
       dict[personModel] = BillLiability()
       return dict
@@ -28,27 +29,7 @@ struct BillByPerson {
   }
 }
 
-
 struct BillLiability {
-  typealias ItemsBreakdown = [ReceiptItemModel: ItemBreakdown]
-  typealias AdjustmentsBreakdown = [ReceiptAdjustmentModel: AdjustmentBreakdown]
-  
   var totalOwed: Amount = .zero
-  
-  var itemsBreakdown: ItemsBreakdown = .init()
-  var adjustmentsBreakdown: AdjustmentsBreakdown = .init()
 }
 extension BillLiability: Equatable, Hashable { }
-
-
-struct ItemBreakdown {
-  var splitCount: Int
-  var liabilityForItem: Amount
-}
-extension ItemBreakdown: Equatable, Hashable { }
-
-
-struct AdjustmentBreakdown {
-  var liabilityForAdjustment: Adjustment
-}
-extension AdjustmentBreakdown: Equatable, Hashable { }

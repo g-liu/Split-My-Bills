@@ -91,11 +91,11 @@ final class BillSetupViewController: UIViewController {
 
 extension BillSetupViewController: PeopleDelegate {
   func didSetPeople(_ people: String) {
-    billState.payers = people.split(separator: "\n").map {
+    billState.people = people.split(separator: "\n").map {
       PersonModel(name: String($0))
     }
     
     // there has to be a better way LOL
-    addPeopleButton.setTitle("Add people (\(billState.payers.count))", for: .normal)
+    addPeopleButton.setTitle("Add people (\(billState.people.count))", for: .normal)
   }
 }

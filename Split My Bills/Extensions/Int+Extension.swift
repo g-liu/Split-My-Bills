@@ -15,4 +15,8 @@ extension Int {
   var amount: Amount {
     Amount(rawValue: self)
   }
+  
+  static func +(left: Int, right: Bool) -> Int {
+    left + right.asInt
+  }
 }
