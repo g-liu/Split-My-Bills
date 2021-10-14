@@ -36,8 +36,9 @@
 		6C3E2D3627164C90008ACD29 /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D3527164C90008ACD29 /* PeopleViewController.swift */; };
 		6C3E2D60271659CA008ACD29 /* PeopleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E2D5F271659CA008ACD29 /* PeopleDelegate.swift */; };
 		6CA3BB422717672E00EB0677 /* Bool+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA3BB412717672E00EB0677 /* Bool+Extension.swift */; };
-		6CE4DE822717FA8900052819 /* BillModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE4DE812717FA8900052819 /* BillModel.swift */; };
+		6CE4DE822717FA8900052819 /* RW_BillModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE4DE812717FA8900052819 /* RW_BillModel.swift */; };
 		6CE4DE8D2717FC5700052819 /* RW_BillBreakdownModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE4DE8C2717FC5700052819 /* RW_BillBreakdownModel.swift */; };
+		6CE4DE932718084900052819 /* RW_BillModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE4DE922718084900052819 /* RW_BillModelTests.swift */; };
 		6CF3FDB927166306002C612F /* ReceiptAdjustmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF3FDB827166306002C612F /* ReceiptAdjustmentTableViewCell.swift */; };
 		6CF3FDBE27166683002C612F /* AddReceiptItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF3FDBD27166683002C612F /* AddReceiptItemViewController.swift */; };
 		6CF3FDD1271673CC002C612F /* PeopleSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF3FDD0271673CC002C612F /* PeopleSelectorViewController.swift */; };
@@ -104,8 +105,9 @@
 		6C3E2D3527164C90008ACD29 /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		6C3E2D5F271659CA008ACD29 /* PeopleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleDelegate.swift; sourceTree = "<group>"; };
 		6CA3BB412717672E00EB0677 /* Bool+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extension.swift"; sourceTree = "<group>"; };
-		6CE4DE812717FA8900052819 /* BillModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillModel.swift; sourceTree = "<group>"; };
+		6CE4DE812717FA8900052819 /* RW_BillModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RW_BillModel.swift; sourceTree = "<group>"; };
 		6CE4DE8C2717FC5700052819 /* RW_BillBreakdownModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RW_BillBreakdownModel.swift; sourceTree = "<group>"; };
+		6CE4DE922718084900052819 /* RW_BillModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RW_BillModelTests.swift; sourceTree = "<group>"; };
 		6CF3FDB827166306002C612F /* ReceiptAdjustmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptAdjustmentTableViewCell.swift; sourceTree = "<group>"; };
 		6CF3FDBD27166683002C612F /* AddReceiptItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReceiptItemViewController.swift; sourceTree = "<group>"; };
 		6CF3FDD0271673CC002C612F /* PeopleSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleSelectorViewController.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 		6C3E2CE327161E32008ACD29 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6CE4DE912718083E00052819 /* Rewrite */,
 				6C3E2CEF27161E5E008ACD29 /* PercentageTests.swift */,
 				6C3E2D1227162DB4008ACD29 /* AmountTests.swift */,
 				6C3E2D1727162FB8008ACD29 /* AdjustmentTests.swift */,
@@ -316,8 +319,16 @@
 		6CE4DE802717FA7B00052819 /* Rewrite */ = {
 			isa = PBXGroup;
 			children = (
-				6CE4DE812717FA8900052819 /* BillModel.swift */,
+				6CE4DE812717FA8900052819 /* RW_BillModel.swift */,
 				6CE4DE8C2717FC5700052819 /* RW_BillBreakdownModel.swift */,
+			);
+			path = Rewrite;
+			sourceTree = "<group>";
+		};
+		6CE4DE912718083E00052819 /* Rewrite */ = {
+			isa = PBXGroup;
+			children = (
+				6CE4DE922718084900052819 /* RW_BillModelTests.swift */,
 			);
 			path = Rewrite;
 			sourceTree = "<group>";
@@ -553,7 +564,7 @@
 				6C3E2D60271659CA008ACD29 /* PeopleDelegate.swift in Sources */,
 				6CF3FDBE27166683002C612F /* AddReceiptItemViewController.swift in Sources */,
 				6CF3FDE027168A39002C612F /* BillBreakdown.swift in Sources */,
-				6CE4DE822717FA8900052819 /* BillModel.swift in Sources */,
+				6CE4DE822717FA8900052819 /* RW_BillModel.swift in Sources */,
 				6C3E2CFD27162AB1008ACD29 /* Double+Extension.swift in Sources */,
 				6CF3FDB927166306002C612F /* ReceiptAdjustmentTableViewCell.swift in Sources */,
 				6C3E2D2C2716481F008ACD29 /* BillSetupViewController.swift in Sources */,
@@ -582,6 +593,7 @@
 				6C3E2CF027161E5E008ACD29 /* PercentageTests.swift in Sources */,
 				6C3E2D0627162CC7008ACD29 /* Int+Extension_Tests.swift in Sources */,
 				6CF3FDDB2716884D002C612F /* BillStateModelTests.swift in Sources */,
+				6CE4DE932718084900052819 /* RW_BillModelTests.swift in Sources */,
 				6C3E2D222716466F008ACD29 /* ReceiptItemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

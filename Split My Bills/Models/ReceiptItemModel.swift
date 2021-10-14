@@ -18,7 +18,7 @@ struct ReceiptItemModel {
   /// Tracks who is paying for the item
   var billees: Billees
   
-  init(itemName: String, itemCost: Amount = .zero, people: [PersonModel]) {
+  init(itemName: String, itemCost: Amount = .zero, people: [PersonModel] = []) {
     self.itemName = itemName
     self.itemCost = itemCost
     self.billees = Billees(people: people)

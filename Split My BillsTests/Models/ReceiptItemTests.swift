@@ -12,7 +12,7 @@ final class ReceiptItemTests: XCTestCase {
   func testDefaultInitialization() {
     let im = ReceiptItemModel(itemName: "heh")
     XCTAssertEqual(im.itemCost, .zero)
-    XCTAssert(im.payers.isEmpty)
+    XCTAssert(im.billees.billees.isEmpty)
     XCTAssertEqual(im.itemName, "heh")
   }
   

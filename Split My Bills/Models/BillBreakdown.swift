@@ -44,6 +44,8 @@ struct PayeeBreakdown {
   var adjustmentsOwed: Amount = .zero
   var percentOfTotalBill: Percentage = .zero
   
+  var totalOwed: Amount { subtotalOwed + adjustmentsOwed }
+  
   mutating func computePortion(of subtotal: Amount) {
     // TODO: CHECK FOR DIVIDE BY ZERO!!!!!
     percentOfTotalBill = subtotalOwed / subtotal

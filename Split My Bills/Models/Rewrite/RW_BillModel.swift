@@ -1,5 +1,5 @@
 //
-//  BillModel.swift
+//  RW_BillModel.swift
 //  Split My Bills
 //
 //  Created by Geoffrey Liu on 10/13/21.
@@ -8,10 +8,10 @@
 import Foundation
 
 struct RW_BillModel {
-  var payers: [RW_Payer]
+  var payers: [RW_Payer] = []
   
-  var items: [RW_ReceiptItemModel]
-  var adjustments: [RW_ReceiptAdjustmentModel]
+  var items: [RW_ReceiptItemModel] = []
+  var adjustments: [RW_ReceiptAdjustmentModel] = []
   
   var subtotal: Amount { items.reduce(Amount.zero) { $0 + $1.itemCost } }
   
@@ -87,7 +87,7 @@ struct RW_BillModel {
 
 struct RW_Payer: Hashable {
   var person: PersonModel
-  var remaindersPaid: Amount
+  var remaindersPaid: Amount = .zero
 }
 
 struct RW_ReceiptItemModel {
