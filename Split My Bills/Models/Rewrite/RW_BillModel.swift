@@ -54,13 +54,13 @@ struct RW_BillModel {
       switch adjustment.adjustment {
         case .amount(let amount):
           runningRemainder += applyCostAdjustment(adjustment, cost: amount, to: &breakdown)
-        case .percentage(_, let applicablePortion):
+        case .percentage(let percentage, let applicablePortion):
           let equivalentAmount: Amount
           switch applicablePortion {
             case .runningTotal:
-              equivalentAmount = runningTotal.adjusted(by: adjustment.adjustment)
+              equivalentAmount = runningTotal * percentage
             case .subtotal:
-              equivalentAmount = subtotal.adjusted(by: adjustment.adjustment)
+              equivalentAmount = subtotal * percentage
           }
           runningTotal += equivalentAmount
           

@@ -106,21 +106,6 @@ final class AmountTests: XCTestCase {
     XCTAssertEqual(diff.rawValue, 2942)
   }
   
-  func testAmountWithAmountAdjustment() {
-    let adjAmount = 2000.amount.adjusted(by: Adjustment.amount(5000.amount))
-    XCTAssertEqual(adjAmount.rawValue, 7000)
-  }
-  
-  func testAmountWithPercentageAdjustment() {
-    let adjAmount = 2000.amount.adjusted(by: Adjustment.percentage(25.percentage, .runningTotal))
-    XCTAssertEqual(adjAmount.rawValue, 2500)
-  }
-  
-  func testAmountAdjustedByPercentage() {
-    let adjAmount = 1499.amount.adjusted(by: Adjustment.percentage(15.percentage, .runningTotal))
-    XCTAssertEqual(adjAmount.rawValue, 1724)
-  }
-  
   func testAmountTimesPercentageAdjustment() {
     let adjAmount = 1499.amount * 15.percentage
     XCTAssertEqual(adjAmount.rawValue, 225)

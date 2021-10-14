@@ -22,7 +22,7 @@ struct RW_BillBreakdownModel {
   
   mutating func computePayerPortions(of subtotal: Amount) {
     perPayerItemsBreakdown.forEach { payer, itemBreakdown in
-      perPayerAdjustmentsBreakdown[payer]?.percentageOfSubtotal = itemBreakdown.itemsSubtotal / subtotal
+      perPayerAdjustmentsBreakdown[payer]?.percentageOfSubtotal = itemBreakdown.itemsSubtotal * 100 / subtotal
     }
   }
   

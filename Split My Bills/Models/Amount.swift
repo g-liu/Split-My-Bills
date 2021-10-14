@@ -64,25 +64,20 @@ struct Amount {
   }
   
   static func +(left: Amount, right: Amount) -> Amount {
-    return Amount(rawValue: left.rawValue + right.rawValue)
+    .init(rawValue: left.rawValue + right.rawValue)
   }
   
   static func -(left: Amount, right: Amount) -> Amount {
-    return Amount(rawValue: left.rawValue - right.rawValue)
-  }
-  
-  func adjusted(by adjustment: Adjustment) -> Amount {
-    switch adjustment {
-      case .amount(let amount):
-        return self + amount
-      case .percentage(let percentage, _):
-        return self + self * percentage
-    }
+    .init(rawValue: left.rawValue - right.rawValue)
   }
   
   static func *(left: Amount, right: Percentage) -> Amount {
     let rawPercentage = right.percent / 100.0
-    return Amount(rawValue: Int(round(Double(left.rawValue) * rawPercentage)))
+    return .init(rawValue: Int(round(Double(left.rawValue) * rawPercentage)))
+  }
+  
+  static func *(left: Amount, right: Int) -> Amount {
+    .init(rawValue: left.rawValue * right)
   }
   
   static func %(left: Amount, right: Percentage) -> Double {
@@ -93,7 +88,7 @@ struct Amount {
   
   static func /(left: Amount, right: Int) -> Amount {
     let rawValue = Int(Double(left.rawValue) / Double(right))
-    return Amount(rawValue: rawValue)
+    return .init(rawValue: rawValue)
   }
   
   static func /(left: Amount, right: Amount) -> Percentage {
