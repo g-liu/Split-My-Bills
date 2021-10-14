@@ -15,6 +15,10 @@ struct RW_BillModel {
   
   var subtotal: Amount { items.reduce(Amount.zero) { $0 + $1.itemCost } }
   
+  var payersNewlineDelineatedList: String {
+    payers.reduce("") { $0 + "\n" + $1.person.name }
+  }
+  
   var splitBill: RW_BillBreakdownModel {
     var breakdown = RW_BillBreakdownModel(payers: payers)
     
@@ -100,7 +104,7 @@ struct RW_ReceiptItemModel {
   var itemName: String
   var itemCost: Amount
   
-  var whoIsPaying: [Bool]
+  var whoIsPaying: [Bool] // this needs to be coupled MUCH closer to RW_BillModel, at least the same count
   
   var isSomeonePaying: Bool { whoIsPaying.contains(true) }
   var numPayers: Int { whoIsPaying.sum }

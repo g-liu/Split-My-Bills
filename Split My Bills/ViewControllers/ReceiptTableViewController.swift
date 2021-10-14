@@ -8,15 +8,15 @@
 import UIKit
 
 final class ReceiptTableViewController: UITableViewController {
-  var billState: BillStateModel
+  var billModel: RW_BillModel
   
-  init(billState: BillStateModel) {
-    self.billState = billState
+  init(billModel: RW_BillModel) {
+    self.billModel = billModel
     super.init(nibName: nil, bundle: nil)
   }
   
   required init?(coder: NSCoder) {
-    self.billState = .init()
+    self.billModel = .init()
     super.init(coder: coder)
   }
   
@@ -47,9 +47,9 @@ extension ReceiptTableViewController {
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch section {
       case 0:
-        return 1 + billState.receipt.items.count
+        return 1 + billModel.items.count
       case 1:
-        return 1 + billState.receipt.adjustments.count
+        return 1 + billModel.adjustments.count
       case 2:
         return 1
       default:
@@ -82,7 +82,7 @@ extension ReceiptTableViewController {
     
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptItemTableViewCell.identifier) as? ReceiptItemTableViewCell else { return UITableViewCell() }
     
-    let fakeAssModel = ReceiptItemModel(itemName: "BABA BOOEY", itemCost: Amount(rawValue: 1499), people: billState.people)
+    let fakeAssModel = RW_ReceiptItemModel(itemName: "BABA BOOEY", itemCost: Amount(rawValue: 1499), whoIsPaying: Array(repeating: true, count: billModel.payers.count))
     cell.configure(with: fakeAssModel)
     return cell
   }
@@ -99,7 +99,7 @@ extension ReceiptTableViewController {
     
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptAdjustmentTableViewCell.identifier) as? ReceiptAdjustmentTableViewCell else { return UITableViewCell() }
     
-    let fakeAssAdjustment = ReceiptAdjustmentModel(name: "tip", adjustment: .percentage(15.0.percentage, .runningTotal))
+    let fakeAssAdjustment = RW_ReceiptAdjustmentModel(adjustmentName: "tip", adjustment: .percentage(15.0.percentage, .runningTotal))
     cell.configure(with: fakeAssAdjustment)
     return cell
   }
@@ -122,7 +122,7 @@ extension ReceiptTableViewController {
   private func didSelectCellInItemsSection(_ indexPath: IndexPath) {
     if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
       // this means they pressed "add item"
-      let addItemVC = AddReceiptItemViewController(billState: billState)
+      let addItemVC = AddReceiptItemViewController(billModel: billModel)
       navigationController?.present(addItemVC, animated: true, completion: nil)
     }
   }

@@ -8,7 +8,7 @@
 import UIKit
 
 final class PeopleSelectorViewController: UIViewController {
-  private let billState: BillStateModel
+  private let billModel: RW_BillModel
   
   lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -63,15 +63,15 @@ final class PeopleSelectorViewController: UIViewController {
     return stackView
   }()
   
-  init(billState: BillStateModel) {
-    self.billState = billState
+  init(billModel: RW_BillModel) {
+    self.billModel = billModel
     super.init(nibName: nil, bundle: nil)
     
     setupVC()
   }
   
   required init?(coder: NSCoder) {
-    self.billState = .init()
+    self.billModel = .init()
     super.init(coder: coder)
     
     setupVC()
@@ -98,7 +98,7 @@ final class PeopleSelectorViewController: UIViewController {
   }
   
   @objc private func selectAllPersons() {
-    billState.people.enumerated().forEach { index, person in
+    billModel.payers.enumerated().forEach { index, person in
       let indexPath = IndexPath(row: index, section: 0)
       guard let cell = collectionView.cellForItem(at: indexPath) as? PersonCollectionViewCell else { return }
       
@@ -107,7 +107,7 @@ final class PeopleSelectorViewController: UIViewController {
   }
   
   @objc private func clearPersonsSelection() {
-    billState.people.enumerated().forEach { index, person in
+    billModel.payers.enumerated().forEach { index, person in
       let indexPath = IndexPath(row: index, section: 0)
       guard let cell = collectionView.cellForItem(at: indexPath) as? PersonCollectionViewCell else { return }
       
@@ -119,7 +119,7 @@ final class PeopleSelectorViewController: UIViewController {
 
 extension PeopleSelectorViewController: UICollectionViewDataSource, UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    billState.people.count
+    billModel.payers.count
   }
   
   
@@ -129,7 +129,7 @@ extension PeopleSelectorViewController: UICollectionViewDataSource, UICollection
       return UICollectionViewCell()
     }
     
-    cell.configure(with: billState.people[indexPath.row])
+    cell.configure(with: billModel.payers[indexPath.row].person)
     return cell
   }
   

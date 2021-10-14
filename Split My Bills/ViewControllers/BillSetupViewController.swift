@@ -8,7 +8,7 @@
 import UIKit
 
 final class BillSetupViewController: UIViewController {
-  private var billState: BillStateModel
+  private var billModel: RW_BillModel
   
   lazy var addPeopleButton: UIButton = {
     let button = UIButton()
@@ -50,13 +50,13 @@ final class BillSetupViewController: UIViewController {
     return stackView
   }()
   
-  init(billState: BillStateModel = .init()) {
-    self.billState = billState
+  init(billModel: RW_BillModel = .init()) {
+    self.billModel = billModel
     super.init(nibName: nil, bundle: nil)
   }
   
   required init?(coder: NSCoder) {
-    self.billState = BillStateModel()
+    self.billModel = .init()
     super.init(coder: coder)
   }
   
@@ -74,13 +74,13 @@ final class BillSetupViewController: UIViewController {
   }
   
   @objc private func didTapAddPeopleButton() {
-    let peopleVC = PeopleViewController(billState: billState)
+    let peopleVC = PeopleViewController(billModel: billModel)
     peopleVC.peopleDelegate = self
     navigationController?.pushViewController(peopleVC, animated: true)
   }
   
   @objc private func didTapAddReceiptButton() {
-    let receiptVC = ReceiptTableViewController(billState: billState)
+    let receiptVC = ReceiptTableViewController(billModel: billModel)
     navigationController?.pushViewController(receiptVC, animated: true)
   }
   
@@ -91,11 +91,12 @@ final class BillSetupViewController: UIViewController {
 
 extension BillSetupViewController: PeopleDelegate {
   func didSetPeople(_ people: String) {
-    billState.people = people.split(separator: "\n").map {
-      PersonModel(name: String($0))
+    billModel.payers = people.split(separator: "\n").map {
+      let person = PersonModel(name: String($0))
+      return RW_Payer(person: person)
     }
     
     // there has to be a better way LOL
-    addPeopleButton.setTitle("Add people (\(billState.people.count))", for: .normal)
+    addPeopleButton.setTitle("Add people (\(billModel.payers.count))", for: .normal)
   }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 final class AddReceiptItemViewController: UIViewController {
-  private let billState: BillStateModel
+  private let billModel: RW_BillModel
   
   private lazy var nameField: UITextField = {
     let textField = UITextField()
@@ -57,17 +57,17 @@ final class AddReceiptItemViewController: UIViewController {
   }()
   
   private lazy var peopleSelectorVC: UIViewController = {
-    let vc = PeopleSelectorViewController(billState: billState)
+    let vc = PeopleSelectorViewController(billModel: billModel)
     return vc
   }()
   
-  init(billState: BillStateModel) {
-    self.billState = billState
+  init(billModel: RW_BillModel) {
+    self.billModel = billModel
     super.init(nibName: nil, bundle: nil)
   }
   
   required init?(coder: NSCoder) {
-    self.billState = .init()
+    self.billModel = .init()
     super.init(coder: coder)
   }
 
