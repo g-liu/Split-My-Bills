@@ -81,13 +81,24 @@ struct Amount {
   }
   
   static func *(left: Amount, right: Percentage) -> Amount {
-    let rawPercentage = Double(right.percent / 100.0)
+    let rawPercentage = right.percent / 100.0
     return Amount(rawValue: Int(round(Double(left.rawValue) * rawPercentage)))
+  }
+  
+  static func %(left: Amount, right: Percentage) -> Double {
+    let rawPercentage = right.percent / 100.0
+    let rawAmount = Double(left.rawValue) * rawPercentage
+    return rawAmount - floor(rawAmount)
   }
   
   static func /(left: Amount, right: Int) -> Amount {
     let rawValue = Int(Double(left.rawValue) / Double(right))
     return Amount(rawValue: rawValue)
+  }
+  
+  static func /(left: Amount, right: Amount) -> Percentage {
+    let rawValue = Double(left.rawValue) / Double(right.rawValue)
+    return Percentage(percent: rawValue)
   }
   
   static func +=(left: inout Amount, right: Amount) {

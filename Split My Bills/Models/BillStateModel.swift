@@ -26,20 +26,18 @@ struct BillStateModel {
   }
   
   /// Calculates the amount owed by each person
-  var splitBill: BillByPerson {
-    var billByPerson = BillByPerson(people: people)
+  var splitBill: BillBreakdown {
+    var billBreakdown = BillBreakdown(people: people)
     
     let remainderTracker = Payers(people: people)
-
-    var runningTotal: Amount = .zero
     
     // STEP 1: Split the items
     
     receipt.items.forEach { item in
-      runningTotal += item.itemCost
+      billBreakdown.subtotalOfBill += item.itemCost
       
       guard item.billees.isSomeonePaying else {
-        billByPerson.leftoverItems.append(item)
+        billBreakdown.leftoverItems.append(item)
         
         return
       }
@@ -47,7 +45,7 @@ struct BillStateModel {
       let (portion, remainder) = item.itemCost.portion(into: item.billees.billees.count)
       
       item.billees.billees.forEach { billee in
-        billByPerson.billLiabilities[billee.person]?.totalOwed += portion
+        billBreakdown.payees[billee.person]?.subtotalOwed += portion
       }
       
       if remainder > .zero {
@@ -55,9 +53,48 @@ struct BillStateModel {
       }
     }
     
-    let subtotal = runningTotal
+    billBreakdown.computePayeesPortionOfTotal()
     
     // STEP 2: Split the adjustments
+    receipt.adjustments.forEach { adjustment in
+      var runningRemainder: Double = 0
+      
+      switch adjustment.adjustment {
+        case .amount(let amount):
+          billBreakdown.payees.forEach { person, payee in
+            let quotient = amount * payee.percentOfTotalBill
+            let remainder = amount % payee.percentOfTotalBill
+            
+            billBreakdown.payees[person]?.adjustmentsOwed += quotient
+            
+            runningRemainder += remainder
+          }
+        case .percentage(let percentage, let applicablePortion):
+          // convert percentage adjustment to dollar amount
+          let equivalentAmount: Amount
+
+          switch applicablePortion {
+            case .runningTotal:
+              equivalentAmount = billBreakdown.runningTotal * percentage
+            case .subtotal:
+              equivalentAmount = billBreakdown.subtotalOfBill * percentage
+          }
+
+          // TODO: REMOVE DUPLICATE CODE!!!!!!!!!!!!!!!!!!!!!!!!!
+          billBreakdown.payees.forEach { person, payee in
+            let quotient = equivalentAmount * payee.percentOfTotalBill
+            let remainder = equivalentAmount % payee.percentOfTotalBill
+            
+            billBreakdown.payees[person]?.adjustmentsOwed += quotient
+            
+            runningRemainder += remainder
+          }
+      }
+      
+      if runningRemainder > .zero {
+        // TODO: Distribute the remainders by running (from subtotal) least remainders owned, in initial order
+      }
+    }
 
     // TODO: NO!!! This code is invalid. No adjustments should be split evenly. They should be split according to the portion of the bill each payee is responsible for.
 //    receipt.adjustments.forEach { adjustment in
@@ -69,8 +106,8 @@ struct BillStateModel {
 //          runningRemainder += adjustmentPortions.remainder
 //
 //          payers.forEach { person in
-//            billByPerson.billLiabilities[person]?.totalOwed += adjustmentPortions.portion
-//            billByPerson.billLiabilities[person]?.adjustmentsBreakdown[adjustment] = AdjustmentBreakdown(liabilityForAdjustment: Adjustment.amount(adjustmentPortions.portion))
+//            billByPerson.payees[person]?.totalOwed += adjustmentPortions.portion
+//            billByPerson.payees[person]?.adjustmentsBreakdown[adjustment] = AdjustmentBreakdown(liabilityForAdjustment: Adjustment.amount(adjustmentPortions.portion))
 //          }
 //        case .percentage(let percentage, let applicablePortion):
 //          let equivalentAmount: Amount
@@ -88,13 +125,13 @@ struct BillStateModel {
 //          runningRemainder += adjustmentPortions.remainder
 //
 //          payers.enumerated().forEach { index, person in
-//            billByPerson.billLiabilities[person]?.totalOwed += adjustmentPortions.portion
-//            billByPerson.billLiabilities[person]?.adjustmentsBreakdown[adjustment] = AdjustmentBreakdown(liabilityForAdjustment: adjustment.adjustment)
+//            billByPerson.payees[person]?.totalOwed += adjustmentPortions.portion
+//            billByPerson.payees[person]?.adjustmentsBreakdown[adjustment] = AdjustmentBreakdown(liabilityForAdjustment: adjustment.adjustment)
 //          }
 //      }
 //    }
 
-    return billByPerson
+    return billBreakdown
   }
 }
 
