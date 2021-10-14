@@ -1,5 +1,5 @@
 //
-//  RW_BillModelTests.swift
+//  BillModelTests.swift
 //  Split My BillsTests
 //
 //  Created by Geoffrey Liu on 10/13/21.
@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 @testable import Split_My_Bills
 
-final class RW_BillModelTests: XCTestCase {
+final class BillModelTests: XCTestCase {
   
   func testBillSplitSingleDivisibleItem() {
     let people: [PersonModel] = ["GL", "AB", "CD"].map { PersonModel(name: $0) }

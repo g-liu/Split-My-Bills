@@ -33,7 +33,7 @@
 		6CA3BB422717672E00EB0677 /* Bool+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA3BB412717672E00EB0677 /* Bool+Extension.swift */; };
 		6CE4DE822717FA8900052819 /* BillModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE4DE812717FA8900052819 /* BillModel.swift */; };
 		6CE4DE8D2717FC5700052819 /* BillBreakdownModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE4DE8C2717FC5700052819 /* BillBreakdownModel.swift */; };
-		6CE4DE932718084900052819 /* RW_BillModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE4DE922718084900052819 /* RW_BillModelTests.swift */; };
+		6CE4DE932718084900052819 /* BillModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE4DE922718084900052819 /* BillModelTests.swift */; };
 		6CEDE055271818AA00DC5D6B /* ItemsBreakdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEDE054271818AA00DC5D6B /* ItemsBreakdown.swift */; };
 		6CEDE057271818BE00DC5D6B /* AdjustmentsBreakdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEDE056271818BE00DC5D6B /* AdjustmentsBreakdown.swift */; };
 		6CEDE059271818EF00DC5D6B /* PayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEDE058271818EF00DC5D6B /* PayerModel.swift */; };
@@ -101,7 +101,7 @@
 		6CA3BB412717672E00EB0677 /* Bool+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extension.swift"; sourceTree = "<group>"; };
 		6CE4DE812717FA8900052819 /* BillModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillModel.swift; sourceTree = "<group>"; };
 		6CE4DE8C2717FC5700052819 /* BillBreakdownModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillBreakdownModel.swift; sourceTree = "<group>"; };
-		6CE4DE922718084900052819 /* RW_BillModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RW_BillModelTests.swift; sourceTree = "<group>"; };
+		6CE4DE922718084900052819 /* BillModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillModelTests.swift; sourceTree = "<group>"; };
 		6CEDE054271818AA00DC5D6B /* ItemsBreakdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsBreakdown.swift; sourceTree = "<group>"; };
 		6CEDE056271818BE00DC5D6B /* AdjustmentsBreakdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustmentsBreakdown.swift; sourceTree = "<group>"; };
 		6CEDE058271818EF00DC5D6B /* PayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayerModel.swift; sourceTree = "<group>"; };
@@ -236,10 +236,10 @@
 			children = (
 				6CEDE05E2718194500DC5D6B /* Bill Breakdown */,
 				6CE4DE802717FA7B00052819 /* Bill Management */,
-				6C3E2CA42716184A008ACD29 /* PersonModel.swift */,
 				6C3E2CB1271618BC008ACD29 /* Adjustment.swift */,
-				6C3E2CCA27161CCE008ACD29 /* Percentage.swift */,
 				6C3E2CB72716191C008ACD29 /* Amount.swift */,
+				6C3E2CCA27161CCE008ACD29 /* Percentage.swift */,
+				6C3E2CA42716184A008ACD29 /* PersonModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -247,11 +247,11 @@
 		6C3E2CA227161151008ACD29 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				6C3E2C0627160909008ACD29 /* ReceiptTableViewController.swift */,
-				6C3E2D2B2716481F008ACD29 /* BillSetupViewController.swift */,
-				6C3E2D3527164C90008ACD29 /* PeopleViewController.swift */,
 				6CF3FDBD27166683002C612F /* AddReceiptItemViewController.swift */,
+				6C3E2D2B2716481F008ACD29 /* BillSetupViewController.swift */,
 				6CF3FDD0271673CC002C612F /* PeopleSelectorViewController.swift */,
+				6C3E2D3527164C90008ACD29 /* PeopleViewController.swift */,
+				6C3E2C0627160909008ACD29 /* ReceiptTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -259,9 +259,9 @@
 		6C3E2CA32716115B008ACD29 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6C3E2C4427160DCF008ACD29 /* ReceiptItemTableViewCell.swift */,
-				6CF3FDB827166306002C612F /* ReceiptAdjustmentTableViewCell.swift */,
 				6CF3FDD5271674BB002C612F /* PersonCollectionViewCell.swift */,
+				6CF3FDB827166306002C612F /* ReceiptAdjustmentTableViewCell.swift */,
+				6C3E2C4427160DCF008ACD29 /* ReceiptItemTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -269,11 +269,11 @@
 		6C3E2CCF27161DBB008ACD29 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				6C3E2CF727162A3D008ACD29 /* Int+Extension.swift */,
-				6C3E2D3027164903008ACD29 /* UIView+Extension.swift */,
-				6C3E2CFC27162AB1008ACD29 /* Double+Extension.swift */,
 				6CF3FDEA271692F0002C612F /* Array+Extension.swift */,
 				6CA3BB412717672E00EB0677 /* Bool+Extension.swift */,
+				6C3E2CFC27162AB1008ACD29 /* Double+Extension.swift */,
+				6C3E2CF727162A3D008ACD29 /* Int+Extension.swift */,
+				6C3E2D3027164903008ACD29 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -281,12 +281,12 @@
 		6C3E2CE327161E32008ACD29 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6CE4DE912718083E00052819 /* Rewrite */,
-				6C3E2CEF27161E5E008ACD29 /* PercentageTests.swift */,
-				6C3E2D1227162DB4008ACD29 /* AmountTests.swift */,
+				6CE4DE912718083E00052819 /* Bill Management */,
 				6C3E2D1727162FB8008ACD29 /* AdjustmentTests.swift */,
-				6C3E2D1C2716308A008ACD29 /* ReceiptModelTests.swift */,
+				6C3E2D1227162DB4008ACD29 /* AmountTests.swift */,
 				6CF3FDDA2716884D002C612F /* BillStateModelTests.swift */,
+				6C3E2CEF27161E5E008ACD29 /* PercentageTests.swift */,
+				6C3E2D1C2716308A008ACD29 /* ReceiptModelTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -294,8 +294,8 @@
 		6C3E2D0427162CB7008ACD29 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				6C3E2D0527162CC7008ACD29 /* Int+Extension_Tests.swift */,
 				6C3E2D0D27162D6F008ACD29 /* Double+Extension_Tests.swift */,
+				6C3E2D0527162CC7008ACD29 /* Int+Extension_Tests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -320,12 +320,12 @@
 			path = "Bill Management";
 			sourceTree = "<group>";
 		};
-		6CE4DE912718083E00052819 /* Rewrite */ = {
+		6CE4DE912718083E00052819 /* Bill Management */ = {
 			isa = PBXGroup;
 			children = (
-				6CE4DE922718084900052819 /* RW_BillModelTests.swift */,
+				6CE4DE922718084900052819 /* BillModelTests.swift */,
 			);
-			path = Rewrite;
+			path = "Bill Management";
 			sourceTree = "<group>";
 		};
 		6CEDE05E2718194500DC5D6B /* Bill Breakdown */ = {
@@ -598,7 +598,7 @@
 				6C3E2CF027161E5E008ACD29 /* PercentageTests.swift in Sources */,
 				6C3E2D0627162CC7008ACD29 /* Int+Extension_Tests.swift in Sources */,
 				6CF3FDDB2716884D002C612F /* BillStateModelTests.swift in Sources */,
-				6CE4DE932718084900052819 /* RW_BillModelTests.swift in Sources */,
+				6CE4DE932718084900052819 /* BillModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
