@@ -38,7 +38,7 @@ struct Amount {
   
   /// Portions the amount exactly into the number of pieces given, distributing the remainder as evenly as possible between the divided amounts
   /// - Parameter pieces: the number of portions to divide into. assumes a minimum of 1 piece
-  func splitPortion(into pieces: Int) -> [Amount] {
+  func splitPortion(into pieces: Int) -> [Amount] { // TODO: Deprecate this if implementing more advanced remainder distribution algorithm on bill level
     guard pieces > 0 else {
       return []
     }
@@ -96,10 +96,12 @@ struct Amount {
     return Percentage(percent: rawValue)
   }
   
+  // TODO: Deprecate (see above)
   static func +=(left: inout Amount, right: Amount) {
     left = left + right
   }
-  
+
+  // TODO: Deprecate (see above)
   static func *=(left: inout Amount, right: Percentage) {
     left = left * right
   }

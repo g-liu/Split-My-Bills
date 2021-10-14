@@ -20,15 +20,9 @@ struct BillBreakdownModel {
     }
   }
   
-  mutating func computePayerPortions(of subtotal: Amount) {
-    perPayerItemsBreakdown.forEach { payer, itemBreakdown in
-      perPayerAdjustmentsBreakdown[payer]?.percentageOfSubtotal = itemBreakdown.itemsSubtotal * 100 / subtotal
-    }
-  }
-  
   var perPayerGrandTotals: [PayerModel: Amount] {
     let result = perPayerItemsBreakdown.map { payer, itemBreakdown -> (PayerModel, Amount) in
-      return (payer, itemBreakdown.itemsSubtotal + (perPayerAdjustmentsBreakdown[payer]?.adjustmentsTotal ?? .zero))
+      return (payer, itemBreakdown.subtotalToPayer + (perPayerAdjustmentsBreakdown[payer]?.adjustmentsTotal ?? .zero))
     }
     
     return Dictionary(uniqueKeysWithValues: result)

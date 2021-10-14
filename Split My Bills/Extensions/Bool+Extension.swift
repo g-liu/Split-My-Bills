@@ -9,12 +9,4 @@ import Foundation
 
 extension Bool {
   var asInt: Int { self ? 1 : 0 }
-  
-  static func +(left: Bool, right: Bool) -> Int {
-    left.asInt + right.asInt
-  }
-  
-  static func +(left: Bool, right: Int) -> Int {
-    left.asInt + right
-  }
 }

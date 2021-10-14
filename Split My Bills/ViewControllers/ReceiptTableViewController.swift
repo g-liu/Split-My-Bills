@@ -82,7 +82,7 @@ extension ReceiptTableViewController {
     
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptItemTableViewCell.identifier) as? ReceiptItemTableViewCell else { return UITableViewCell() }
     
-    let fakeAssModel = ReceiptItem(itemName: "BABA BOOEY", itemCost: Amount(rawValue: 1499), whoIsPaying: Array(repeating: true, count: billModel.payers.count))
+    let fakeAssModel = ReceiptItem(itemName: "BABA BOOEY", itemCost: Amount(rawValue: 1499), isBillableToPayer: Array(repeating: true, count: billModel.payers.count))
     cell.configure(with: fakeAssModel)
     return cell
   }

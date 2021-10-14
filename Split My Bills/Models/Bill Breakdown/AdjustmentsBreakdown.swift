@@ -9,7 +9,6 @@ import Foundation
 
 struct AdjustmentsBreakdown {
   var adjustmentsBreakdown: [AdjustmentBreakdown] = []
-  var percentageOfSubtotal: Percentage = .zero
   
   var adjustmentsTotal: Amount {
     adjustmentsBreakdown.reduce(Amount.zero) { $0 + $1.costEquivalentToPayer }

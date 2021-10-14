@@ -31,7 +31,7 @@ struct BillModel {
       
       let (costPerPayer, remainder) = item.itemCost.portion(into: item.numPayers)
       
-      item.whoIsPaying.enumerated().forEach { index, isPaying in
+      item.isBillableToPayer.enumerated().forEach { index, isPaying in
         let payer = payers[index]
         
         guard isPaying else {
@@ -47,8 +47,6 @@ struct BillModel {
       
       // TODO: Account for remainder.
     }
-    
-    breakdown.computePayerPortions(of: subtotal)
     
     // Step 2: Split adjustments
     var runningTotal: Amount = subtotal
@@ -80,7 +78,7 @@ struct BillModel {
   private func applyCostAdjustment(_ adjustmentModel: ReceiptAdjustment, cost: Amount, to breakdown: inout BillBreakdownModel) -> Double {
     var runningRemainder: Double = 0.0
     payers.forEach { payer in
-      guard let payerPortion = breakdown.perPayerAdjustmentsBreakdown[payer]?.percentageOfSubtotal else { return }
+      guard let payerPortion = breakdown.perPayerItemsBreakdown[payer]?.percentageOfSubtotal else { return }
       
       let adjustmentCostToPayer = cost * payerPortion
       let adjustmentCostRemaining = cost % payerPortion
