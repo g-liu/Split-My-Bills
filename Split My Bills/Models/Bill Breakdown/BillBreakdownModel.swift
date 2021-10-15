@@ -21,6 +21,7 @@ struct BillBreakdownModel {
   }
   
   var perPersonGrandTotals: [PersonModel: Amount] {
+    // TODO: This is very inefficient, perhaps compute on a person-by-person basis?
     let result = perPersonItemsBreakdown.map { person, itemBreakdown -> (PersonModel, Amount) in
       return (person, itemBreakdown.subtotalToPayer + (perPersonAdjustmentsBreakdown[person]?.adjustmentsTotal ?? .zero))
     }
