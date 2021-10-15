@@ -10,16 +10,14 @@ import XCTest
 @testable import Split_My_Bills
 
 final class BillModelTests: XCTestCase {
-  private let person1 = PersonModel(name: "GL")
-  private let person2 = PersonModel(name: "CN")
-  private let person3 = PersonModel(name: "TA")
-  private let person4 = PersonModel(name: "ZG")
-  private let person5 = PersonModel(name: "JW")
+  private let person1 = PersonModel(name: "CN")
+  private let person2 = PersonModel(name: "GL")
+  private let person3 = PersonModel(name: "JW")
+  private let person4 = PersonModel(name: "TA")
+  private let person5 = PersonModel(name: "ZG")
   
   func testBillDivisionOfEmptyBill() {
-    let persons = [person1, person2]
-
-    let billState = BillModel(persons: persons)
+    let billState = makeBill(numPeople: 2)
     let result = billState.splitBill
 
     XCTAssertEqual(result.perPersonItemsBreakdown[person1]?.subtotalToPayer, .zero)
@@ -27,13 +25,7 @@ final class BillModelTests: XCTestCase {
   }
   
   func testBillSplitSingleDivisibleItem() {
-    let persons = [person1, person2, person3]
-    
-    let items: [ReceiptItem] = [
-      .init(itemName: "J1", itemCost: 1500.amount, isBillableToPayer: [true,true,true]),
-    ]
-    
-    let bill = BillModel(persons: persons, items: items)
+    let bill = makeBill(numPeople: 3, itemsMeta: [(1500.amount, [true,true,true])])
     let result = bill.splitBill
     
     XCTAssertEqual(result.perPersonItemsBreakdown.count, 3)
@@ -49,10 +41,7 @@ final class BillModelTests: XCTestCase {
   }
   
   func testBillDivisionOfSingleItemNonDivisibleCostBill() {
-    let persons = [person1, person2, person3]
-
-    let item = ReceiptItem(itemName: "heh", itemCost: 50.amount, isBillableToPayer: [true, true, true])
-    let billState = BillModel(persons: persons, items: [item])
+    let billState = makeBill(numPeople: 3, itemsMeta: [(50.amount,[true,true,true])])
 
     let result = billState.splitBill
 
@@ -63,15 +52,39 @@ final class BillModelTests: XCTestCase {
     XCTAssert(result.unclaimedItems.isEmpty)
   }
   
+  func testBillDivisionOfTwoItemsUnequallyDividedNoOverlap() {
+    let billModel = makeBill(numPeople: 4,
+                             itemsMeta: [(2000.amount,[true,false,false,true]),
+                                        (1499.amount,[false,true,true,false]),])
+
+    let result = billModel.splitBill
+
+    XCTAssertEqual(result.perPersonItemsBreakdown[person1]?.subtotalToPayer, 1000.amount)
+    XCTAssertEqual(result.perPersonItemsBreakdown[person2]?.subtotalToPayer, 750.amount)
+    XCTAssertEqual(result.perPersonItemsBreakdown[person3]?.subtotalToPayer, 749.amount)
+    XCTAssertEqual(result.perPersonItemsBreakdown[person4]?.subtotalToPayer, 1000.amount)
+
+    XCTAssert(result.unclaimedItems.isEmpty)
+  }
+  
+  func testBillDivisionOfTwoItemsUnequallyDividedWithOverlap() {
+    let billModel = makeBill(numPeople: 3,
+                             itemsMeta: [(2001.amount,[true,true,false]),
+                                        (1499.amount,[false,true,true]),])
+    
+    let result = billModel.splitBill
+
+    XCTAssertEqual(result.perPersonItemsBreakdown[person1]?.subtotalToPayer, 1001.amount)
+    XCTAssertEqual(result.perPersonItemsBreakdown[person2]?.subtotalToPayer, 1749.amount)
+    XCTAssertEqual(result.perPersonItemsBreakdown[person3]?.subtotalToPayer, 750.amount)
+    
+    XCTAssert(result.unclaimedItems.isEmpty)
+  }
+  
   func testBillSplitMultipleDivisibleItems() {
-    let persons = [person1, person2, person3]
-    
-    let items: [ReceiptItem] = [
-      .init(itemName: "J1", itemCost: 1500.amount, isBillableToPayer: [true,true,true]),
-      .init(itemName: "J2", itemCost: 2442.amount, isBillableToPayer: [true,true,true]),
-    ]
-    
-    let bill = BillModel(persons: persons, items: items)
+    let bill = makeBill(numPeople: 3,
+                        itemsMeta: [(1500.amount,[true,true,true]),
+                                   (2442.amount,[true,true,true])])
     let result = bill.splitBill
     
     XCTAssertEqual(result.perPersonItemsBreakdown[person1]?.subtotalToPayer, 1314.amount)
@@ -88,15 +101,10 @@ final class BillModelTests: XCTestCase {
   }
   
   func testBillUnevenlySplitMultipleDivisbleItems() {
-    let persons = [person1, person2, person3]
-    
-    let items: [ReceiptItem] = [
-      .init(itemName: "J1", itemCost: 2500.amount, isBillableToPayer: [true,false,true]), // 1250 per
-      .init(itemName: "J2", itemCost: 2445.amount, isBillableToPayer: [true,true,true]), // 815 per
-      .init(itemName: "J3", itemCost: 776.amount, isBillableToPayer: [false,true,true]), // 388 per
-    ]
-    
-    let bill = BillModel(persons: persons, items: items)
+    let bill = makeBill(numPeople: 3,
+                        itemsMeta: [(2500.amount,[true,false,true]),
+                                   (2445.amount,[true,true,true]),
+                                   (776.amount,[false,true,true])])
     let result = bill.splitBill
     
     XCTAssertEqual(result.perPersonItemsBreakdown[person1]?.subtotalToPayer, 2065.amount)
@@ -117,17 +125,9 @@ final class BillModelTests: XCTestCase {
   }
   
   func testBillSplitSingleDivisibleItemWithDivisibleAdjustment() {
-    let persons = [person1, person2, person3]
-    
-    let items: [ReceiptItem] = [
-      .init(itemName: "J1", itemCost: 1500.amount, isBillableToPayer: [true,true,true]),
-    ]
-    
-    let adjustments: [ReceiptAdjustment] = [
-      .init(adjustmentName: "tax", adjustment: .percentage(15.percentage, .runningTotal))
-    ]
-    
-    let bill = BillModel(persons: persons, items: items, adjustments: adjustments)
+    let bill = makeBill(numPeople: 3,
+                        itemsMeta: [(1500.amount,[true,true,true])],
+                        adjustmentsMeta: [.percentage(15.percentage, .runningTotal)])
     let result = bill.splitBill
     
     XCTAssertEqual(result.perPersonItemsBreakdown.count, 3)
@@ -144,5 +144,24 @@ final class BillModelTests: XCTestCase {
     XCTAssertEqual(result.perPersonAdjustmentsBreakdown[person1]?.adjustmentsBreakdown.first?.costEquivalentToPayer, 75.amount)
     XCTAssertEqual(result.perPersonAdjustmentsBreakdown[person2]?.adjustmentsBreakdown.first?.costEquivalentToPayer, 75.amount)
     XCTAssertEqual(result.perPersonAdjustmentsBreakdown[person3]?.adjustmentsBreakdown.first?.costEquivalentToPayer, 75.amount)
+  }
+  
+  private func makeBill(numPeople: Int, itemsMeta: [(Amount, [Bool])] = [], adjustmentsMeta: [Adjustment] = []) -> BillModel {
+    // Step 1: Generate names in alphabetical order
+    // For now, just pick from the preset list
+    // TODO: Make it possible to generate arbitrarily many people names in alpha. order
+    let possiblePeople = [person1, person2, person3, person4, person5]
+    let constrainedNumPeople = Int(min(5, max(0, numPeople)))
+    let people = Array(possiblePeople[0..<constrainedNumPeople])
+    
+    let items = itemsMeta.enumerated().map { index, meta in
+      ReceiptItem(itemName: "item\(index)", itemCost: meta.0, isBillableToPayer: meta.1)
+    }
+    
+    let adjustments = adjustmentsMeta.enumerated().map { index, meta in
+      ReceiptAdjustment(adjustmentName: "adj\(index)", adjustment: meta)
+    }
+    
+    return BillModel(persons: people, items: items, adjustments: adjustments)
   }
 }
