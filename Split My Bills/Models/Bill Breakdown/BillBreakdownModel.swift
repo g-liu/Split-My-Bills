@@ -8,21 +8,21 @@
 import Foundation
 
 struct BillBreakdownModel {
-  var perPayerItemsBreakdown: [PayerModel: ItemsBreakdown] = [:]
-  var perPayerAdjustmentsBreakdown: [PayerModel: AdjustmentsBreakdown] = [:]
+  var perPersonItemsBreakdown: [PersonModel: ItemsBreakdown] = [:]
+  var perPersonAdjustmentsBreakdown: [PersonModel: AdjustmentsBreakdown] = [:]
   
   var unclaimedItems: [ReceiptItem] = []
   
-  init(payers: [PayerModel]) {
-    payers.forEach { payer in
-      perPayerItemsBreakdown[payer] = .init()
-      perPayerAdjustmentsBreakdown[payer] = .init()
+  init(persons: [PersonModel]) {
+    persons.forEach { person in
+      perPersonItemsBreakdown[person] = .init()
+      perPersonAdjustmentsBreakdown[person] = .init()
     }
   }
   
-  var perPayerGrandTotals: [PayerModel: Amount] {
-    let result = perPayerItemsBreakdown.map { payer, itemBreakdown -> (PayerModel, Amount) in
-      return (payer, itemBreakdown.subtotalToPayer + (perPayerAdjustmentsBreakdown[payer]?.adjustmentsTotal ?? .zero))
+  var perPersonGrandTotals: [PersonModel: Amount] {
+    let result = perPersonItemsBreakdown.map { person, itemBreakdown -> (PersonModel, Amount) in
+      return (person, itemBreakdown.subtotalToPayer + (perPersonAdjustmentsBreakdown[person]?.adjustmentsTotal ?? .zero))
     }
     
     return Dictionary(uniqueKeysWithValues: result)

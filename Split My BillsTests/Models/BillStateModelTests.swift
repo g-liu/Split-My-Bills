@@ -16,34 +16,6 @@ import XCTest
 //  private var person4 = PersonModel(name: "ZG")
 //  private var person5 = PersonModel(name: "JW")
 //
-//  func testBillDivisionOfEmptyBill() {
-//    let payers = [person1, person2]
-//
-//    let billState = BillStateModel(people: payers, receipt: .init())
-//    let result = billState.splitBill
-//
-//    XCTAssertEqual(result.payees[person1]!.subtotalOwed, .zero)
-//    XCTAssertEqual(result.payees[person2]!.subtotalOwed, .zero)
-//  }
-//
-//  func testBillDivisionOfSingleItemDivisibleCostBill() {
-//    let payers = [person1, person2, person3, person4, person5]
-//
-//    let item = ReceiptItemModel(itemName: "swordfish", itemCost: 2000.amount)
-//    let receipt = ReceiptModel(items: [item])
-//    let billState = BillStateModel(people: payers, receipt: receipt)
-//
-//    let result = billState.splitBill
-//
-//    XCTAssertEqual(result.payees[person1]!.subtotalOwed, 400.amount)
-//    XCTAssertEqual(result.payees[person2]!.subtotalOwed, 400.amount)
-//    XCTAssertEqual(result.payees[person3]!.subtotalOwed, 400.amount)
-//    XCTAssertEqual(result.payees[person4]!.subtotalOwed, 400.amount)
-//    XCTAssertEqual(result.payees[person5]!.subtotalOwed, 400.amount)
-//
-//    XCTAssertEqual(result.leftoverAmount, .zero)
-//    XCTAssertEqual(result.leftoverItems, .init())
-//  }
 //
 //  func testBillDivisionOfSingleItemNonDivisibleCostBill() {
 //    let payers = [person1, person2, person3]

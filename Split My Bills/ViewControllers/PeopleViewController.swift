@@ -42,7 +42,7 @@ final class PeopleViewController: UIViewController {
   
   init(billModel: BillModel) {
     super.init(nibName: nil, bundle: nil)
-    let text = billModel.payersNewlineDelineatedList
+    let text = billModel.personsNewlineDelineatedList
     peopleEntryTextView.text = text
   }
   

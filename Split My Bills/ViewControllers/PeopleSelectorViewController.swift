@@ -98,7 +98,7 @@ final class PeopleSelectorViewController: UIViewController {
   }
   
   @objc private func selectAllPersons() {
-    billModel.payers.enumerated().forEach { index, person in
+    billModel.persons.enumerated().forEach { index, person in
       let indexPath = IndexPath(row: index, section: 0)
       guard let cell = collectionView.cellForItem(at: indexPath) as? PersonCollectionViewCell else { return }
       
@@ -107,7 +107,7 @@ final class PeopleSelectorViewController: UIViewController {
   }
   
   @objc private func clearPersonsSelection() {
-    billModel.payers.enumerated().forEach { index, person in
+    billModel.persons.enumerated().forEach { index, person in
       let indexPath = IndexPath(row: index, section: 0)
       guard let cell = collectionView.cellForItem(at: indexPath) as? PersonCollectionViewCell else { return }
       
@@ -119,7 +119,7 @@ final class PeopleSelectorViewController: UIViewController {
 
 extension PeopleSelectorViewController: UICollectionViewDataSource, UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    billModel.payers.count
+    billModel.persons.count
   }
   
   
@@ -129,7 +129,7 @@ extension PeopleSelectorViewController: UICollectionViewDataSource, UICollection
       return UICollectionViewCell()
     }
     
-    cell.configure(with: billModel.payers[indexPath.row].person)
+    cell.configure(with: billModel.persons[indexPath.row])
     return cell
   }
   
