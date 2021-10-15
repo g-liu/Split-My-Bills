@@ -77,7 +77,7 @@ final class AddReceiptItemViewController: UIViewController {
     addChild(peopleSelectorVC)
     
     stackView.addArrangedSubview(nameField)
-//    stackView.addArrangedSubview(dollarSignLabel) // todo: layout needs to go with price field.
+//    stackView.addArrangedSubview(dollarSignLabel) // TODO: layout needs to go with price field.
     stackView.addArrangedSubview(priceField)
     stackView.addArrangedSubview(peopleSelectorVC.view)
     

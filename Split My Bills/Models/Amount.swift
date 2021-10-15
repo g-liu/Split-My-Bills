@@ -36,33 +36,6 @@ struct Amount {
     return (quotient, remainder)
   }
   
-  /// Portions the amount exactly into the number of pieces given, distributing the remainder as evenly as possible between the divided amounts
-  /// - Parameter pieces: the number of portions to divide into. assumes a minimum of 1 piece
-  func splitPortion(into pieces: Int) -> [Amount] { // TODO: Deprecate this if implementing more advanced remainder distribution algorithm on bill level
-    guard pieces > 0 else {
-      return []
-    }
-    
-    let (quotient, remainder) = portion(into: pieces)
-    
-    var divisions = Array(repeating: quotient, count: pieces)
-
-    if remainder > 0.amount {
-      let lowStepSize = pieces / remainder.rawValue
-      let highStepSize = lowStepSize + 1
-      let stepPattern = [highStepSize, lowStepSize]
-      var lastDivisionIndex: Int = 0
-      (0..<remainder.rawValue).forEach {
-        divisions[lastDivisionIndex] += 1.amount
-        let stepSize = stepPattern[$0 % stepPattern.count]
-        lastDivisionIndex += stepSize
-        lastDivisionIndex %= pieces
-      }
-    }
-    
-    return divisions
-  }
-  
   static func +(left: Amount, right: Amount) -> Amount {
     .init(rawValue: left.rawValue + right.rawValue)
   }

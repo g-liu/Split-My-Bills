@@ -39,7 +39,6 @@ struct BillModel {
         billBreakdown.addItemBreakdown(person: person, breakdown: itemBreakdown)
       }
       
-      // TODO: Account for remainder.
       if remainder > .zero {
         // TODO: Move at least logic to generate `sortedPayersIndexesByRemaindersPaid` to a new method.
         // Could this be achieved by implementing Comparable somewhere?
