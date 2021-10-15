@@ -147,7 +147,7 @@ extension BillModelTests {
     
     people.enumerated().forEach { index, person in
       XCTAssertEqual(result.getSubtotal(person: person), subtotals[index],
-                     "Wrong subtotal for \(person)'s breakdown, expected \(subtotals[index])")
+                     "Wrong subtotal for \(person.name)'s breakdown, expected \(subtotals[index])")
     }
   }
   
@@ -156,7 +156,7 @@ extension BillModelTests {
       itemsInRow.enumerated().forEach { personIndex, amount in
         let person = possiblePeople[personIndex]
         XCTAssertEqual(result.getItemCost(person: person, itemIndex: itemIndex), amount,
-                       "Wrong amount for \(person)'s portion of item# \(itemIndex); expected \(amount)")
+                       "Wrong amount for \(person.name)'s portion of item# \(itemIndex); expected \(amount)")
       }
     }
   }
@@ -166,7 +166,7 @@ extension BillModelTests {
       adjustmentsInRow.enumerated().forEach { personIndex, amount in
         let person = possiblePeople[personIndex]
         XCTAssertEqual(result.getAdjustmentCost(person: person, adjustmentIndex: adjustmentIndex), amount,
-                       "Wrong amount for \(person)'s portion of adjustment# \(adjustmentIndex); expected \(amount)")
+                       "Wrong amount for \(person.name)'s portion of adjustment# \(adjustmentIndex); expected \(amount)")
       }
     }
   }
@@ -176,7 +176,7 @@ extension BillModelTests {
     
     people.enumerated().forEach { index, person in
       XCTAssertEqual(result.getGrandTotal(person: person), grandTotals[index],
-                     "Wrong grand total for \(person)'s breakdown, expected \(grandTotals[index])")
+                     "Wrong grand total for \(person.name)'s breakdown, expected \(grandTotals[index])")
     }
   }
 }
