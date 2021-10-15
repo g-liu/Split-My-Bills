@@ -91,6 +91,12 @@ struct BillModel {
           remainder = applyCostAdjustment(adjustment, cost: equivalentAmount, to: &billBreakdown)
       }
       
+      // TODO: CONSIDER THIS EDGE CASE!!!
+      // One or more payers on bill have a subtotal of $0.
+      // Should they be responsible for any part of the remainder?
+      // If the answer to the above is no, then:
+      // 1) Where is the "threshold" for making a payer eligible to receive a remainder?
+      // 2) How can we exclude them from receiving remainders?
       if remainder > .zero {
         // Distribute remainder in order of least paid remainders
         let payerIndexesOrdered = payers.enumerated()

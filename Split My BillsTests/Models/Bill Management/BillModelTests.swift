@@ -111,6 +111,16 @@ final class BillModelTests: XCTestCase {
     VerifyAdjustmentBreakdowns(result, adjustmentMeta: [[75,75,75]].amount)
     VerifyGrandTotals(result, [575,575,575].amount)
   }
+  
+  func testBillSplitSingleDivisibleItemWithNonDivisibleAdjustment() {
+    let bill = makeBill(numPeople: 3,
+                        itemsMeta: [(1494.amount,[true,true,true])],
+                        adjustmentsMeta: [.percentage(18.percentage, .runningTotal)])
+    let result = bill.splitBill
+    
+    VerifySubtotals(result, [498,498,498].amount)
+    VerifyAdjustmentBreakdowns(result, adjustmentMeta: [[90,90,89]].amount) // 268.92 bill adj total
+  }
 }
 
 
