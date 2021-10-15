@@ -83,7 +83,7 @@ import XCTest
 //    let payers = [person1, person2, person3]
 //
 //    let item1 = ReceiptItemModel(itemName: "swordfish", itemCost: 2000.amount, people: payers)
-//    let adj1 = ReceiptAdjustmentModel(name: "tip", adjustment: .percentage(18.15.percentage, .runningTotal))
+//    let adj1 = ReceiptAdjustmentModel(name: "tip", adjustment: .percent(18.15.percent, .runningTotal))
 //
 //    let receipt = ReceiptModel(items: [item1], adjustments: [adj1])
 //    let billState = BillStateModel(people: payers, receipt: receipt)

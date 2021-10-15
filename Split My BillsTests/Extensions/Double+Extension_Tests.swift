@@ -10,7 +10,7 @@ import XCTest
 
 final class Double_Extension_Tests: XCTestCase {
   func testDoubleConversionToPercentage() {
-    let pctFromDouble = 2.345.percentage
+    let pctFromDouble = 2.345.percent
     let pctFromPct = Percentage(percent: 2.345)
     
     XCTAssertEqual(pctFromDouble, pctFromPct)

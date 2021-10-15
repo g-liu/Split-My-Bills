@@ -60,8 +60,9 @@ struct Amount {
   }
   
   static func /(left: Amount, right: Int) -> Amount {
-    let rawValue = Int(Double(left.rawValue) / Double(right))
-    return .init(rawValue: rawValue)
+    let rawValue = Double(left.rawValue) / Double(right)
+    guard !rawValue.isNaN else { return .zero }
+    return .init(rawValue: Int(round(rawValue)))
   }
   
   static func /(left: Amount, right: Amount) -> Percentage {

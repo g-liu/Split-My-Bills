@@ -10,7 +10,7 @@ import XCTest
 
 final class Int_Extension_Tests: XCTestCase {
   func testIntConversionToPercentage() {
-    let pctFromInt = 1.percentage
+    let pctFromInt = 1.percent
     let pctFromPct = Percentage(percent: 1)
     
     XCTAssertEqual(pctFromInt, pctFromPct)

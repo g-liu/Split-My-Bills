@@ -26,7 +26,7 @@ import XCTest
 //
 //  func testFormattedTotalOnPercentageAdjustmentsOnlyReceipt() {
 //    let adjustments = [27, 24, 8.4].map {
-//      return ReceiptAdjustmentModel(name: "whatevs", adjustment: .percentage($0.percentage, .runningTotal))
+//      return ReceiptAdjustmentModel(name: "whatevs", adjustment: .percent($0.percent, .runningTotal))
 //    }
 //    let receipt = ReceiptModel(adjustments: adjustments)
 //

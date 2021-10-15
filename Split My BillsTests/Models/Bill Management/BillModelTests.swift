@@ -103,7 +103,7 @@ final class BillModelTests: XCTestCase {
   func testBillSplitSingleDivisibleItemWithDivisibleAdjustment() {
     let bill = makeBill(numPeople: 3,
                         itemsMeta: [(1500.amount,[true,true,true])],
-                        adjustmentsMeta: [.percentage(15.percentage, .runningTotal)])
+                        adjustmentsMeta: [.percentage(15.percent, .runningTotal)])
     let result = bill.splitBill
     
     VerifySubtotals(result, [500,500,500].amount)
@@ -115,7 +115,7 @@ final class BillModelTests: XCTestCase {
   func testBillSplitSingleDivisibleItemWithNonDivisibleAdjustment() {
     let bill = makeBill(numPeople: 3,
                         itemsMeta: [(1494.amount,[true,true,true])],
-                        adjustmentsMeta: [.percentage(18.percentage, .runningTotal)])
+                        adjustmentsMeta: [.percentage(18.percent, .runningTotal)])
     let result = bill.splitBill
     
     VerifySubtotals(result, [498,498,498].amount)

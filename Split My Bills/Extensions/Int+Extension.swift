@@ -8,8 +8,8 @@
 import Foundation
 
 extension Int {
-  var percentage: Percentage {
-    Double(self).percentage
+  var percent: Percentage {
+    Double(self).percent
   }
   
   var amount: Amount {

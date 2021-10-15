@@ -8,7 +8,7 @@
 import Foundation
 
 extension Double {
-  var percentage: Percentage {
+  var percent: Percentage {
     return Percentage(percent: self)
   }
   

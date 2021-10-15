@@ -62,8 +62,83 @@ final class AmountTests: XCTestCase {
     XCTAssertEqual(diff.rawValue, 2942)
   }
   
+  func testScaleAmountByZero() {
+    let result = 142325.amount * 0
+    XCTAssertEqual(result, .zero)
+  }
+  
+  func testScaleAmountByNegativeMultiple() {
+    let result = 45.amount * -2
+    XCTAssertEqual(result, (-90).amount)
+  }
+  
+  func testScaleNegativeAmountByPositiveMultiple() {
+    let result = (-45).amount * 2
+    XCTAssertEqual(result, (-90).amount)
+  }
+  
+  func testScaleNegativeAmountByNegativeMultiple() {
+    let result = (-45).amount * -2
+    XCTAssertEqual(result, 90.amount)
+  }
+  
+  func testScaleAmountByPositiveMultiple() {
+    let result = 1243.amount * 46
+    XCTAssertEqual(result, 57178.amount)
+  }
+  
+  func testMultiplyAmountByZeroPercent() {
+    let result = 444444.amount * 0.percent
+    XCTAssertEqual(result, .zero)
+  }
+  
+  func testMultiplyAmountBy100Percent() {
+    let result = 1743.amount * 100.percent
+    XCTAssertEqual(result, 1743.amount)
+  }
+  
+  func testMultiplyAmountByPercentResultingInRoundingDown() {
+    let result = 14.amount * 16.percent
+    XCTAssertEqual(result, 2.amount)
+  }
+  
+  func testMultiplyAmountByPercentResultingInRoundingUp() {
+    let result = 14.amount * 20.percent
+    XCTAssertEqual(result, 3.amount)
+  }
+  
+  func testZeroRemainderOfAmountByPercent() {
+    let result = 168.amount % 100.percent
+    XCTAssertEqual(result, 0.0)
+  }
+  
+  func testNonzeroRemainderOfAmountByPercent() {
+    let result = 168.amount % 38.percent
+    XCTAssertEqual(result, 0.84, accuracy: 0.00000000001)
+  }
+  
+  func testNonzeroRemainderOfAmountByNegativePercent() {
+    let result = 168.amount % (-38).percent
+    XCTAssertEqual(result, -0.84, accuracy: 0.00000000001)
+  }
+  
+  func testNonzeroRemainderOfNegativeAmountByPercent() {
+    let result = (-168).amount % 38.percent
+    XCTAssertEqual(result, -0.84, accuracy: 0.00000000001)
+  }
+  
+  func testNonzeroRemainderOfNegativeAmountByNegativePercent() {
+    let result = (-168).amount % (-38).percent
+    XCTAssertEqual(result, 0.84, accuracy: 0.00000000001)
+  }
+  
+  func testDivideAmountByZero() {
+    let result = (414).amount / 0
+    
+  }
+  
   func testAmountTimesPercentageAdjustment() {
-    let adjAmount = 1499.amount * 15.percentage
+    let adjAmount = 1499.amount * 15.percent
     XCTAssertEqual(adjAmount.rawValue, 225)
   }
 }

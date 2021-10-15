@@ -34,7 +34,13 @@ struct Percentage {
 }
 
 extension Percentage {
-  static let zero = 0.0.percentage
+  static let zero = 0.0.percent
 }
 
 extension Percentage: Equatable, Hashable { }
+
+extension Percentage: Comparable {
+  static func < (lhs: Percentage, rhs: Percentage) -> Bool {
+    lhs.percent < rhs.percent
+  }
+}

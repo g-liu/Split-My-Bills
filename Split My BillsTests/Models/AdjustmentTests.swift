@@ -11,7 +11,7 @@ import XCTest
 final class AdjustmentTests: XCTestCase {
 
   func testFormattedPercentage() {
-    let adj = Adjustment.percentage(14.8.percentage, .runningTotal).formatted
+    let adj = Adjustment.percentage(14.8.percent, .runningTotal).formatted
     XCTAssertEqual(adj, "14.8%")
   }
   
