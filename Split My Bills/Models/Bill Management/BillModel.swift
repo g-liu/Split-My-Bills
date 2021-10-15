@@ -40,54 +40,24 @@ struct BillModel {
       }
       
       if remainder > .zero {
-        // TODO: Move at least logic to generate `sortedPayersIndexesByRemaindersPaid` to a new method.
-        // Could this be achieved by implementing Comparable somewhere?
-        
-        // Distribute the remainder in order of who has paid the least remainders (as a running total).
-        // If two persons have paid the same remainder, tiebreak on whoever has paid more (as a running total).
-        // If two persons have paid equal amounts, tiebreak on names in ascending order.
-//        var inc = 0
-//        let sortedPayersIndexesByRemaindersPaid = item.isBillableToPayer.enumerated()
-//          .prefix {
-//            if $0.element { inc += 1 }
-//            return inc <= remainder.rawValue
-//          }
-//          .compactMap { $0.element ? $0.offset : nil }
-//          .sorted { index1, index2 in
-//            let payer1 = payers[index1]
-//            let payer2 = payers[index2]
-//            if payer1.remaindersPaid == payer2.remaindersPaid {
-//              let payer1Subtotal = billBreakdown.getSubtotal(person: payer1.person)! // TODO: HOW TO GET RID OF !
-//              let payer2Subtotal = billBreakdown.getSubtotal(person: payer2.person)!
-//
-//              if payer1Subtotal == payer2Subtotal {
-//                return payer1.person.name < payer2.person.name
-//              }
-//
-//              return payer1Subtotal < payer2Subtotal
-//            }
-//
-//            return payer1.remaindersPaid < payer2.remaindersPaid
-//          }
-        
-        let sortedPayersIndexesByRemaindersPaid = item.isBillableToPayer.enumerated()
-          .compactMap { $1 ? $0 : nil }
-          .sorted { index1, index2 in
-            let payer1 = payers[index1]
-            let payer2 = payers[index2]
+        let sortedPayersIndexesByRemaindersPaid = payers.enumerated()
+          .filter { index, _ in item.isBillableToPayer[index] }
+          .sorted { i1, i2 in
+            let payer1 = i1.element, payer2 = i2.element
             if payer1.remaindersPaid == payer2.remaindersPaid {
-              let payer1Subtotal = billBreakdown.getSubtotal(person: payer1.person)! // TODO: HOW TO GET RID OF !
-              let payer2Subtotal = billBreakdown.getSubtotal(person: payer2.person)!
-
+              let payer1Subtotal = billBreakdown.getSubtotal(person: payer1.person) ?? .zero
+              let payer2Subtotal = billBreakdown.getSubtotal(person: payer2.person) ?? .zero
+              
               if payer1Subtotal == payer2Subtotal {
                 return payer1.person.name < payer2.person.name
               }
-
+              
               return payer1Subtotal < payer2Subtotal
             }
-
+            
             return payer1.remaindersPaid < payer2.remaindersPaid
           }
+          .map { $0.offset }
         
         // distribute the remainder for the item
         (0..<remainder.rawValue).forEach {
