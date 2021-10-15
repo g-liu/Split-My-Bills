@@ -8,10 +8,10 @@
 import Foundation
 
 struct BillBreakdownModel {
-  var perPersonItemsBreakdown: [PersonModel: ItemsBreakdown] = [:]
-  var perPersonAdjustmentsBreakdown: [PersonModel: AdjustmentsBreakdown] = [:]
+  private var perPersonItemsBreakdown: [PersonModel: ItemsBreakdown] = [:]
+  private var perPersonAdjustmentsBreakdown: [PersonModel: AdjustmentsBreakdown] = [:]
   
-  var unclaimedItems: [ReceiptItem] = []
+  private(set) var unclaimedItems: [ReceiptItem] = []
   
   init(persons: [PersonModel]) {
     persons.forEach { person in
@@ -20,12 +20,51 @@ struct BillBreakdownModel {
     }
   }
   
-  var perPersonGrandTotals: [PersonModel: Amount] {
-    // TODO: This is very inefficient, perhaps compute on a person-by-person basis?
-    let result = perPersonItemsBreakdown.map { person, itemBreakdown -> (PersonModel, Amount) in
-      return (person, itemBreakdown.subtotalToPayer + (perPersonAdjustmentsBreakdown[person]?.adjustmentsTotal ?? .zero))
+  // MARK: Getters
+  
+  func getItemCost(person: PersonModel, itemIndex: Int) -> Amount? {
+    return perPersonItemsBreakdown[person]?.itemsBreakdown[itemIndex].costToPayer
+  }
+  
+  func getAdjustmentCost(person: PersonModel, adjustmentIndex: Int) -> Amount? {
+    return perPersonAdjustmentsBreakdown[person]?.adjustmentsBreakdown[adjustmentIndex].costEquivalentToPayer
+  }
+  
+  func getSubtotal(person: PersonModel) -> Amount? {
+    return perPersonItemsBreakdown[person]?.subtotalToPayer
+  }
+  
+  func getPercentageOfSubtotal(person: PersonModel) -> Percentage? {
+    return perPersonItemsBreakdown[person]?.percentageOfSubtotal
+  }
+  
+  func getGrandTotal(person: PersonModel) -> Amount? {
+    (perPersonItemsBreakdown[person]?.subtotalToPayer ?? .zero) +
+    (perPersonAdjustmentsBreakdown[person]?.adjustmentsTotal ?? .zero)
+  }
+  
+  // MARK: Setters
+  
+  mutating func addItemBreakdown(person: PersonModel, breakdown: ItemBreakdown) {
+    perPersonItemsBreakdown[person]?.itemsBreakdown.append(breakdown)
+  }
+  
+  mutating func addAdjustmentBreakdown(person: PersonModel, breakdown: AdjustmentBreakdown) {
+    perPersonAdjustmentsBreakdown[person]?.adjustmentsBreakdown.append(breakdown)
+  }
+  
+  @discardableResult
+  mutating func adjustLastItemBreakdown(person: PersonModel, by amount: Amount) -> Bool {
+    if let itemBreakdownCount = perPersonItemsBreakdown[person]?.itemsBreakdown.count {
+      let lastItemIndex = itemBreakdownCount - 1
+      perPersonItemsBreakdown[person]?.itemsBreakdown[lastItemIndex].costToPayer += 1.amount
+      return true
+    } else {
+      return false
     }
-    
-    return Dictionary(uniqueKeysWithValues: result)
+  }
+  
+  mutating func addUnclaimedItem(_ item: ReceiptItem) {
+    unclaimedItems.append(item)
   }
 }

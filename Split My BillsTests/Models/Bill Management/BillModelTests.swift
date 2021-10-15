@@ -33,9 +33,6 @@ final class BillModelTests: XCTestCase {
     let bill = makeBill(numPeople: 3, itemsMeta: [(1500.amount, [true,true,true])])
     let result = bill.splitBill
     
-    XCTAssertEqual(result.perPersonItemsBreakdown.count, 3)
-    XCTAssertEqual(result.perPersonAdjustmentsBreakdown.count, 3)
-    
     VerifySubtotals(result, [500,500,500].amount)
     
     VerifyItemBreakdowns(result, itemMeta: [[500,500,500].amount])
@@ -45,11 +42,9 @@ final class BillModelTests: XCTestCase {
     let billState = makeBill(numPeople: 3, itemsMeta: [(50.amount,[true,true,true])])
 
     let result = billState.splitBill
-
-    XCTAssertEqual(result.perPersonItemsBreakdown[person1]?.subtotalToPayer, 17.amount)
-    XCTAssertEqual(result.perPersonItemsBreakdown[person2]?.subtotalToPayer, 17.amount)
-    XCTAssertEqual(result.perPersonItemsBreakdown[person3]?.subtotalToPayer, 16.amount)
-
+    
+    VerifySubtotals(result, [17,17,16].amount)
+    
     XCTAssert(result.unclaimedItems.isEmpty)
   }
   
@@ -151,7 +146,7 @@ extension BillModelTests {
     let people = getArrayOfPeople(subtotals.count)
     
     people.enumerated().forEach { index, person in
-      XCTAssertEqual(result.subtotal(person: person), subtotals[index],
+      XCTAssertEqual(result.getSubtotal(person: person), subtotals[index],
                      "Wrong subtotal for \(person)'s breakdown, expected \(subtotals[index])")
     }
   }
@@ -160,7 +155,7 @@ extension BillModelTests {
     itemMeta.enumerated().forEach { itemIndex, itemsInRow in
       itemsInRow.enumerated().forEach { personIndex, amount in
         let person = possiblePeople[personIndex]
-        XCTAssertEqual(result.itemCost(person: person, itemIndex: itemIndex), amount,
+        XCTAssertEqual(result.getItemCost(person: person, itemIndex: itemIndex), amount,
                        "Wrong amount for \(person)'s portion of item# \(itemIndex); expected \(amount)")
       }
     }
@@ -170,7 +165,7 @@ extension BillModelTests {
     adjustmentMeta.enumerated().forEach { adjustmentIndex, adjustmentsInRow in
       adjustmentsInRow.enumerated().forEach { personIndex, amount in
         let person = possiblePeople[personIndex]
-        XCTAssertEqual(result.adjustmentCost(person: person, adjustmentIndex: adjustmentIndex), amount,
+        XCTAssertEqual(result.getAdjustmentCost(person: person, adjustmentIndex: adjustmentIndex), amount,
                        "Wrong amount for \(person)'s portion of adjustment# \(adjustmentIndex); expected \(amount)")
       }
     }
@@ -180,7 +175,7 @@ extension BillModelTests {
     let people = getArrayOfPeople(grandTotals.count)
     
     people.enumerated().forEach { index, person in
-      XCTAssertEqual(result.grandTotal(person: person), grandTotals[index],
+      XCTAssertEqual(result.getGrandTotal(person: person), grandTotals[index],
                      "Wrong grand total for \(person)'s breakdown, expected \(grandTotals[index])")
     }
   }
@@ -197,28 +192,5 @@ private extension Array where Element == Int {
 private extension Array where Element == [Int] {
   var amount: [[Amount]] {
     map { $0.amount }
-  }
-}
-
-private extension BillBreakdownModel {
-  // TODO: If these are sufficiently helpful then move them into the main model.
-  func itemCost(person: PersonModel, itemIndex: Int) -> Amount? {
-    return perPersonItemsBreakdown[person]?.itemsBreakdown[itemIndex].costToPayer
-  }
-  
-  func adjustmentCost(person: PersonModel, adjustmentIndex: Int) -> Amount? {
-    return perPersonAdjustmentsBreakdown[person]?.adjustmentsBreakdown[adjustmentIndex].costEquivalentToPayer
-  }
-  
-  func subtotal(person: PersonModel) -> Amount? {
-    return perPersonItemsBreakdown[person]?.subtotalToPayer
-  }
-  
-  func percentageOfTotal(person: PersonModel) -> Percentage? {
-    return perPersonItemsBreakdown[person]?.percentageOfSubtotal
-  }
-  
-  func grandTotal(person: PersonModel) -> Amount? {
-    return perPersonGrandTotals[person]
   }
 }
