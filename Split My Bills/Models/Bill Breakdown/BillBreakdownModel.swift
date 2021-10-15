@@ -54,10 +54,21 @@ struct BillBreakdownModel {
   }
   
   @discardableResult
-  mutating func adjustLastItemBreakdown(person: PersonModel, by amount: Amount) -> Bool {
+  mutating func amendLastItemBreakdown(person: PersonModel, by amount: Amount) -> Bool {
     if let itemBreakdownCount = perPersonItemsBreakdown[person]?.itemsBreakdown.count {
       let lastItemIndex = itemBreakdownCount - 1
-      perPersonItemsBreakdown[person]?.itemsBreakdown[lastItemIndex].costToPayer += 1.amount
+      perPersonItemsBreakdown[person]?.itemsBreakdown[lastItemIndex].costToPayer += amount
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  @discardableResult
+  mutating func amendLastAdjustmentBreakdown(person: PersonModel, by amount: Amount) -> Bool {
+    if let adjustmentBreakdownCount = perPersonAdjustmentsBreakdown[person]?.adjustmentsBreakdown.count {
+      let lastItemIndex = adjustmentBreakdownCount - 1
+      perPersonAdjustmentsBreakdown[person]?.adjustmentsBreakdown[lastItemIndex].costEquivalentToPayer += amount
       return true
     } else {
       return false
